@@ -66,11 +66,15 @@ Este endpoint permite comprobar que el servidor está funcionando correctamente.
 
 ## Modelos
 
-Actualmente se ha definido el modelo:
+Actualmente se han definido los siguientes modelos:
 
-- `Profile`: información principal del perfil profesional.
-
-Los demás modelos se incorporarán progresivamente durante el desarrollo.
+- `Profile`: información principal y de contacto del perfil.
+- `ProfessionalProfile`: descripción del perfil profesional.
+- `Technology`: tecnologías agrupadas por categoría.
+- `Experience`: experiencia profesional y responsabilidades.
+- `Project`: proyectos destacados y contribuciones.
+- `Education`: formación académica y complementaria.
+- `Language`: idiomas y nivel de dominio.
 
 ## Estructura del proyecto
 
@@ -85,7 +89,13 @@ developer-portfolio/
 │   │   │   └── profileController.js
 │   │   ├── middlewares/
 │   │   ├── models/
-│   │   │   └── profile.model.js
+│   │   │    ├── profile.model.js
+│   │   │    ├── professionalProfile.model.js
+│   │   │    ├── technology.model.js
+│   │   │    ├── experience.model.js
+│   │   │    ├── project.model.js
+│   │   │    ├── education.model.js
+│   │   │    └── language.model.js
 │   │   ├── routes/
 │   │   │   └── profileRoutes.js
 │   │   ├── services/

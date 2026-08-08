@@ -63,6 +63,12 @@ El modelo `Profile` utilizará campos independientes para el nombre y el apellid
 name
 lastname
 
+### Motivo
+
+El CV presenta visualmente el nombre y el apellido como elementos independientes.
+
+Mantenerlos separados permite que el frontend controle su presentación de forma flexible y mantenga una correspondencia directa con la estructura visual del CV.
+
 ---
 
 ## DEC-005 — Ausencia de fotografía en el perfil
@@ -80,3 +86,31 @@ El CV actual no utiliza fotografía y el portfolio web seguirá la misma estruct
 No se agregará un campo que no responda a un requisito actual del proyecto.
 
 ---
+
+## DEC-006 — Unificación de formación en el modelo Education
+
+**Fecha:** 2026-08-08
+
+### Decisión
+
+La formación académica y la formación complementaria se gestionarán mediante un único modelo `Education`.
+
+No se creará un modelo independiente `ComplementaryEducation`.
+
+El modelo `Education` utilizará el campo `type` para identificar el tipo de formación:
+
+- `degree`
+- `bootcamp`
+- `course`
+- `certification`
+
+### Motivo
+
+La formación académica y la formación complementaria comparten una estructura de datos similar, incluyendo información como título, institución y fechas.
+
+Mantener un único modelo evita duplicar schemas y permite gestionar los diferentes tipos de formación mediante una misma colección.
+
+El campo type permitirá distinguir cada tipo de formación y facilitará posteriormente su filtrado y presentación desde la API y el frontend.
+
+---
+
