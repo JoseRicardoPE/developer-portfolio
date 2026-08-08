@@ -22,8 +22,20 @@ La aplicación sigue una arquitectura por capas, separando las responsabilidades
 
 ### Entry points
 
-- `server.js`: punto de entrada de la aplicación. Se encarga de cargar las variables de entorno e iniciar el servidor HTTP.
+- `server.js`: punto de entrada de la aplicación. Se encarga de cargar las variables de entorno, establecer la conexión con MongoDB e iniciar el servidor HTTP.
 - `app.js`: configuración de la aplicación Express, middlewares y rutas.
+
+### Configuración
+
+La configuración de la conexión a MongoDB se encuentra en:
+
+`src/config/database.js`
+
+La conexión utiliza la variable de entorno:
+
+`MONGODB_URI`
+
+Las variables de entorno se gestionan mediante `dotenv`.
 
 ### Middlewares
 
@@ -34,6 +46,16 @@ Actualmente se utilizan:
 - `express.json()`: permite procesar solicitudes con contenido JSON.
 - `express.urlencoded()`: permite procesar datos codificados en URL.
 
+### Database
+
+La aplicación utiliza MongoDB como sistema de persistencia y Mongoose como ODM.
+
+La conexión se establece antes de iniciar el servidor HTTP.
+
+Actualmente la conexión se realiza mediante:
+
+`mongoose.connect(process.env.MONGODB_URI)`
+
 ### Health Check
 
 La API dispone de un endpoint:
@@ -41,6 +63,14 @@ La API dispone de un endpoint:
 `GET /api/health`
 
 Este endpoint permite comprobar que el servidor está funcionando correctamente.
+
+## Modelos
+
+Actualmente se ha definido el modelo:
+
+- `Profile`: información principal del perfil profesional.
+
+Los demás modelos se incorporarán progresivamente durante el desarrollo.
 
 ## Estructura del proyecto
 
@@ -50,13 +80,21 @@ developer-portfolio/
 ├── backend/
 │   ├── src/
 │   │   ├── config/
+│   │   │   └── database.js
 │   │   ├── controllers/
+│   │   │   └── profileController.js
 │   │   ├── middlewares/
 │   │   ├── models/
+│   │   │   └── profile.model.js
 │   │   ├── routes/
+│   │   │   └── profileRoutes.js
 │   │   ├── services/
-│   │   └── utils/
+│   │   │   └── profileService.js
+│   │   ├── utils/
+│   │   ├── app.js
+│   │   └── server.js
 │   │
+│   ├── .env.example
 │   └── package.json
 │
 ├── frontend/
@@ -66,3 +104,6 @@ developer-portfolio/
 ├── README.md
 ├── LICENSE
 └── .gitignore
+
+
+
