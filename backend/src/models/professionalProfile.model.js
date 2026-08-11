@@ -1,17 +1,20 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const professionalProfileSchema = new mongoose.Schema(
-    {
-        paragraphs: {
-            type: [String],
-            required: true,
-        },
+  {
+    paragraphs: {
+      type: [String],
+      required: true,
     },
-    {
-        timestamps: true,
-    }
+  },
+  {
+    timestamps: true,
+  },
 );
 
-const ProfessionalProfile = mongoose.model('ProfessionalProfile', professionalProfileSchema);
+const ProfessionalProfile = mongoose.model(
+  "ProfessionalProfile",
+  professionalProfileSchema,
+);
 
 export default ProfessionalProfile;

@@ -53,6 +53,32 @@ Mongoose se utiliza para:
 - Gestionar la interacción entre el backend y MongoDB.
 - Generar automáticamente `createdAt` y `updatedAt` mediante `timestamps`.
 
+## Identificadores de documentos
+
+MongoDB utiliza `ObjectId` como identificador para los documentos de los recursos de colección.
+
+Los siguientes recursos utilizan `ObjectId` para realizar operaciones sobre documentos específicos:
+
+- `Technology`
+- `Experience`
+- `Project`
+- `Education`
+- `Language`
+
+Los endpoints que reciben un parámetro `/:id` validan previamente que el identificador tenga un formato válido antes de realizar operaciones mediante Mongoose.
+
+La validación se encuentra centralizada en:
+
+`backend/src/utils/validateObjectId.js`
+
+Las operaciones utilizadas para trabajar con documentos específicos incluyen:
+
+- `findById()`
+- `findByIdAndUpdate()`
+- `findByIdAndDelete()`
+
+Los recursos `Profile` y `ProfessionalProfile` representan documentos únicos y, por lo tanto, sus endpoints no requieren un identificador en la URL.
+
 ## Modelos y colecciones
 
 El contenido del portfolio se encuentra dividido en los siguientes modelos:
