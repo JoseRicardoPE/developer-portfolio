@@ -76,6 +76,60 @@ Actualmente se han definido los siguientes modelos:
 - `Education`: formación académica y complementaria.
 - `Language`: idiomas y nivel de dominio.
 
+## API REST
+
+La API expone operaciones CRUD para los recursos principales del portfolio.
+
+### Recursos únicos
+
+Los siguientes recursos representan un único documento y no utilizan identificadores en la URL:
+
+- `Profile`
+- `ProfessionalProfile`
+
+Endpoints:
+
+- `GET`
+- `POST`
+- `PUT`
+- `DELETE`
+
+**Ejemplos:**
+- `/api/profile`
+- `/api/professional-profile`
+
+### Recursos de colección
+Los siguientes recursos pueden contener múltiples documentos:
+
+- `Technology`
+- `Experience`
+- `Project`
+- `Education`
+- `Language`
+
+Estos recursos utilizan identificadores de MongoDB para consultar, actualizar o eliminar documentos específicos.
+
+**Ejemplo:**
+- `GET    /api/projects`
+- `GET    /api/projects/:id`
+- `POST   /api/projects`
+- `PUT    /api/projects/:id`
+- `DELETE /api/projects/:id`
+
+### Validación de ObjectId
+
+Los endpoints que utilizan `/:id` validan previamente que el identificador tenga un formato válido de `ObjectId`.
+
+La validación se encuentra centralizada en:
+
+`src/utils/validateObjectId.js`
+
+La API utiliza la siguiente convención:
+
+- `ObjectId inválido          → 400 Bad Request`
+- `ObjectId válido inexistente → 404 Not Found`
+- `Documento encontrado        → 200 OK`
+
 ## Estructura del proyecto
 
 ```text
@@ -86,21 +140,40 @@ developer-portfolio/
 │   │   ├── config/
 │   │   │   └── database.js
 │   │   ├── controllers/
-│   │   │   └── profileController.js
+│   │   │   ├── profileController.js
+│   │   │   ├── professionalProfileController.js
+│   │   │   ├── experienceController.js
+│   │   │   ├── projectController.js
+│   │   │   ├── educationController.js
+│   │   │   ├── languageController.js
+│   │   │   └── technologyController.js
 │   │   ├── middlewares/
 │   │   ├── models/
-│   │   │    ├── profile.model.js
-│   │   │    ├── professionalProfile.model.js
-│   │   │    ├── technology.model.js
-│   │   │    ├── experience.model.js
-│   │   │    ├── project.model.js
-│   │   │    ├── education.model.js
-│   │   │    └── language.model.js
+│   │   │   ├── profile.model.js
+│   │   │   ├── professionalProfile.model.js
+│   │   │   ├── experience.model.js
+│   │   │   ├── project.model.js
+│   │   │   ├── education.model.js
+│   │   │   ├── language.model.js
+│   │   │   └── technology.model.js
 │   │   ├── routes/
-│   │   │   └── profileRoutes.js
+│   │   │   ├── profileRoutes.js
+│   │   │   ├── professionalProfileRoutes.js
+│   │   │   ├── experienceRoutes.js
+│   │   │   ├── projectRoutes.js
+│   │   │   ├── educationRoutes.js
+│   │   │   ├── languageRoutes.js
+│   │   │   └── technologyRoutes.js
 │   │   ├── services/
-│   │   │   └── profileService.js
+│   │   │   ├── profileService.js
+│   │   │   ├── professionalProfileService.js
+│   │   │   ├── experienceService.js
+│   │   │   ├── projectService.js
+│   │   │   ├── educationService.js
+│   │   │   ├── languageService.js
+│   │   │   └── technologyService.js
 │   │   ├── utils/
+│   │   │   └── validateObjectId.js
 │   │   ├── app.js
 │   │   └── server.js
 │   │

@@ -60,8 +60,8 @@ Mongoose permite definir schemas, modelos y validaciones para mantener una estru
 
 El modelo `Profile` utilizará campos independientes para el nombre y el apellido:
 
-name
-lastname
+- `name`
+- `lastname`
 
 ### Motivo
 
@@ -114,3 +114,48 @@ El campo type permitirá distinguir cada tipo de formación y facilitará poster
 
 ---
 
+## DEC-007 — Validación centralizada de ObjectId
+
+**Fecha:** 2026-08-10
+
+### Decisión
+
+Los endpoints de recursos de colección que reciben un identificador mediante `/:id` validarán el formato del `ObjectId` antes de realizar una consulta a MongoDB.
+
+La validación se centralizará en:
+
+`src/utils/validateObjectId.js`
+
+y será utilizada por los controladores de los siguientes recursos:
+
+- `Technology`
+- `Experience`
+- `Project`
+- `Education`
+- `Language`
+
+Los recursos `Profile` y `ProfessionalProfile` no requieren esta validación porque representan documentos únicos y sus endpoints no utilizan `/:id`.
+
+### Motivo
+
+Las operaciones de Mongoose como `findById()`, `findByIdAndUpdate()` y `findByIdAndDelete()` esperan identificadores compatibles con `ObjectId`.
+
+Si se recibe un identificador con un formato inválido, Mongoose puede generar un `CastError`.
+
+Validar previamente el identificador permite evitar que este caso sea tratado como un error interno del servidor y proporciona respuestas HTTP más claras y consistentes.
+
+La API utilizará la siguiente convención:
+
+- `400 Bad Request`: el identificador recibido no tiene un formato válido de `ObjectId`.
+- `404 Not Found`: el identificador tiene un formato válido, pero el documento no existe.
+- `200 OK`: el identificador es válido y el documento solicitado existe.
+
+### Implementación
+
+La validación utiliza:
+
+`mongoose.Types.ObjectId.isValid(id)`
+
+La lógica se encuentra centralizada en una función reutilizable para evitar duplicar directamente la validación de Mongoose en cada controlador.
+
+---
