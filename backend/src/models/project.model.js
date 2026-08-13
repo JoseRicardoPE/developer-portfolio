@@ -13,6 +13,11 @@ const projectSchema = new mongoose.Schema(
       trim: true,
     },
 
+    url: {
+      type: String,
+      trim: true,
+    },
+
     technologies: {
       type: [String],
       required: true,
@@ -21,11 +26,6 @@ const projectSchema = new mongoose.Schema(
     contributions: {
       type: [String],
       required: true,
-    },
-
-    url: {
-      type: String,
-      trim: true,
     },
 
     repository: {

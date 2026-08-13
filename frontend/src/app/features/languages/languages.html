@@ -1,0 +1,18 @@
+<section>
+    <h2>Idiomas</h2>
+    @for (language of languages(); track language._id) {
+        <article>
+            <h3>{{ language.language }}</h3>
+            <p>{{ language.level }}</p>
+            @if (language.description) {
+                <p>
+                    {{ language.description }}
+                </p>
+            }
+        </article>
+    } @empty {
+        <p>
+            No hay idiomas disponibles.
+        </p>
+    }
+</section>

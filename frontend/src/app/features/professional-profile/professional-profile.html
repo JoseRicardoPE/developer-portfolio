@@ -1,0 +1,8 @@
+<section>
+    <h2>Perfil Profesional</h2>
+    @if (professionalProfile(); as professionalProfileData) {
+        @for (paragraph of professionalProfileData.paragraphs; track $index) {
+            <p>{{ paragraph }}</p>
+        }
+    }
+</section>

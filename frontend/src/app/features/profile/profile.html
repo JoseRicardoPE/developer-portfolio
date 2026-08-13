@@ -1,0 +1,13 @@
+<section>
+    @if (profile(); as profileData) {
+        <h1>{{ profileData.name }}</h1>
+        <h2>{{ profileData.lastname }}</h2>
+        <h3>{{ profileData.title }}</h3>
+        <p>{{ profileData.subtitle }}</p>
+        <p>{{ profileData.location }}</p>
+        <p>{{ profileData.email }}</p>
+        <p>{{ profileData.phone }}</p>
+        <p>{{ profileData.linkedin }}</p>
+        <p>{{ profileData.github }}</p>
+    }
+</section>

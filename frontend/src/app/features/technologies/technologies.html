@@ -1,0 +1,13 @@
+<section>
+    <h2>Technologías</h2>
+    @for (technology of technologies(); track technology._id) {
+        <div>
+            <h3>{{ technology.category }}</h3>
+            <p>
+                @for (item of technology.items; track $index) {
+                    {{ item }} @if (!$last) { • }
+                }
+            </p>
+        </div>
+    }
+</section>
