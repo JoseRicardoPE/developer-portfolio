@@ -1,0 +1,42 @@
+<section>
+    <h2>Proyectos Destacados</h2>
+    @for (project of projects(); track project._id) {
+        <article>
+            <h3>{{ project.name }}</h3>
+            @if (project.description) {
+                <p>{{ project.description }}</p>
+            }
+            @if (project.url) {
+                <a [href]="project.url" target="_blank">
+                    Ver proyecto
+                </a>
+            }
+            <h4>Tecnologías</h4>
+            <p>
+                @for (technology of project.technologies; track $index) {
+                    {{ technology }} @if (!$last) { • }
+                }
+            </p>
+            <h4>Contribuciones</h4>
+            <ul>
+                @for (contribution of project.contributions; track $index) {
+                    <li>{{ contribution }}</li>
+                }
+            </ul>
+            @if (project.repository) {
+                <a [href]="project.url">
+                    Repositorio
+                </a>
+            }
+            @if (project.relatedExperience) {
+                <p>
+                    Experiencia Relacionada:{{ project.relatedExperience }}
+                </p>
+            }
+        </article>
+    } @empty {
+        <p>
+            No hay proyectos disponibles.
+        </p>
+    }
+</section>
