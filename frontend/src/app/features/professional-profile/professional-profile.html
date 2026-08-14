@@ -1,6 +1,10 @@
 <section>
     <h2>Perfil Profesional</h2>
-    @if (professionalProfile(); as professionalProfileData) {
+    @if (loading()) {
+        <app-loading></app-loading>
+    } @else if (error(); as errorMessage) {
+        <app-error-message [message]="errorMessage"></app-error-message>
+    } @else if (professionalProfile(); as professionalProfileData) {
         @for (paragraph of professionalProfileData.paragraphs; track $index) {
             <p>{{ paragraph }}</p>
         }

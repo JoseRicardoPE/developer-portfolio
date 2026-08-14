@@ -83,8 +83,16 @@ developer-portfolio/
 │   │   │   ├── shared/
 │   │   │   │   ├── components/
 │   │   │   │   │   ├── section-title/
+│   │   │   │   │   │
 │   │   │   │   │   ├── loading/
+│   │   │   │   │   │   ├── loading.ts
+│   │   │   │   │   │   ├── loading.html
+│   │   │   │   │   │   └── loading.scss
+│   │   │   │   │   │
 │   │   │   │   │   └── error-message/
+│   │   │   │   │       ├── error-message.ts
+│   │   │   │   │       ├── error-message.html
+│   │   │   │   │       └── error-message.scss
 │   │   │   │   │
 │   │   │   │   ├── directives/
 │   │   │   │   ├── pipes/
@@ -132,6 +140,10 @@ developer-portfolio/
 │   │   │   ├── app.spec.ts
 │   │   │   ├── app.config.ts
 │   │   │   └── app.routes.ts
+│   │   │
+│   │   ├── environments/
+│   │   │   ├── environment.production.ts
+│   │   │   └── environment.ts
 │   │   │
 │   │   ├── styles/
 │   │   │   ├── _vars.scss

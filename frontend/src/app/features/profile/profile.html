@@ -1,5 +1,9 @@
 <section>
-    @if (profile(); as profileData) {
+    @if (loading()) {
+        <app-loading></app-loading>
+    } @else if (error(); as errorMessage) {
+        <app-error-message [message]="errorMessage"></app-error-message>
+    } @else if (profile(); as profileData) {
         <h1>{{ profileData.name }}</h1>
         <h2>{{ profileData.lastname }}</h2>
         <h3>{{ profileData.title }}</h3>

@@ -1,24 +1,30 @@
 <section>
     <h2>Experiencia Profesional</h2>
-    @for (experience of experiences(); track experience._id) {
-        <article>
-            <h3>{{ experience.position }}</h3>
-            <p>{{ experience.company }}</p>
-            <p>
-                {{ experience.startDate }}
-                @if (experience.current) {
-                    - Actualidad
-                } @else {
-                    - {{ experience.endDate }}
-                }
-            </p>
-            <ul>
-                @for (responsibility of experience.responsibilities; track $index) {
-                    <li>{{ responsibility }}</li>
-                }
-            </ul>
-        </article>
-    } @empty {
-        <p>No hay experiencia profesional disponible.</p>
+    @if (loading()) {
+        <app-loading></app-loading>
+    } @else if (error(); as errorMessage) {
+        <app-error-message [message]="errorMessage"></app-error-message>
+    } @else {
+        @for (experience of experiences(); track experience._id) {
+            <article>
+                <h3>{{ experience.position }}</h3>
+                <p>{{ experience.company }}</p>
+                <p>
+                    {{ experience.startDate }}
+                    @if (experience.current) {
+                        - Actualidad
+                    } @else {
+                        - {{ experience.endDate }}
+                    }
+                </p>
+                <ul>
+                    @for (responsibility of experience.responsibilities; track $index) {
+                        <li>{{ responsibility }}</li>
+                    }
+                </ul>
+            </article>
+        } @empty {
+            <p>No hay experiencia profesional disponible.</p>
+        }
     }
 </section>

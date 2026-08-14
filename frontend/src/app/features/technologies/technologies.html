@@ -1,13 +1,21 @@
 <section>
     <h2>Technologías</h2>
-    @for (technology of technologies(); track technology._id) {
-        <div>
-            <h3>{{ technology.category }}</h3>
-            <p>
-                @for (item of technology.items; track $index) {
-                    {{ item }} @if (!$last) { • }
-                }
-            </p>
-        </div>
+    @if (loading()) {
+        <app-loading></app-loading>
+    } @else if (error(); as errorMessage) {
+        <app-error-message [message]="errorMessage"></app-error-message>
+    } @else {
+        @for (technology of technologies(); track technology._id) {
+            <div>
+                <h3>{{ technology.category }}</h3>
+                <p>
+                    @for (item of technology.items; track $index) {
+                        {{ item }} @if (!$last) { • }
+                    }
+                </p>
+            </div>
+        } @empty {
+            <p>No hay tecnologías disponibles.</p>
+        }
     }
 </section>
