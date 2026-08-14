@@ -159,3 +159,70 @@ La validación utiliza:
 La lógica se encuentra centralizada en una función reutilizable para evitar duplicar directamente la validación de Mongoose en cada controlador.
 
 ---
+
+## DEC-008 — Estrategia de integración entre Angular y la API REST
+
+**Fecha:** 2026-08-14
+
+### Decisión
+
+El frontend Angular utilizará una estrategia centralizada para la comunicación con la API REST y para la gestión de los estados asociados a las peticiones HTTP.
+
+La integración utilizará los siguientes elementos:
+
+- Angular environments para configurar la URL base de la API según el entorno.
+- `environment.ts` para el entorno de desarrollo.
+- `environment.production.ts` para el entorno de producción.
+- `api.constants.ts` para centralizar los endpoints de la API.
+- Servicios Angular para encapsular las peticiones HTTP de cada recurso.
+- `HttpClient` como cliente para la comunicación con la API REST.
+- Un interceptor HTTP funcional para centralizar el registro de errores HTTP.
+- Angular Signals para gestionar los estados de datos, carga y error en cada feature.
+- Componentes compartidos `Loading` y `ErrorMessage` para representar estados comunes de la interfaz.
+
+Los títulos de las secciones permanecerán independientes del estado de las peticiones HTTP, permitiendo que continúen visibles durante los estados de carga o error.
+
+### Motivo
+
+Centralizar la configuración de la API evita utilizar URLs hardcodeadas directamente en los servicios y permite adaptar la aplicación a diferentes entornos sin modificar la lógica de comunicación.
+
+Los servicios mantienen separada la responsabilidad de acceso a datos de la lógica de presentación de los componentes.
+
+El interceptor permite disponer de un punto común para registrar errores HTTP, mientras que cada feature mantiene la responsabilidad de decidir qué mensaje mostrar al usuario.
+
+Los Signals permiten representar de forma explícita los tres estados principales de cada petición:
+
+- Datos.
+- Carga.
+- Error.
+
+Los componentes compartidos evitan duplicar la representación visual de los estados de carga y error entre las diferentes secciones del portfolio.
+
+### Implementación
+
+El flujo de comunicación queda estructurado de la siguiente manera:
+
+`Environment → API Constants → Angular Services → HttpClient → HTTP Interceptor → Express API → MongoDB`
+
+En desarrollo se utiliza:
+
+`environment.ts → http://localhost:3000/api`
+
+En producción se utiliza:
+
+`environment.production.ts → /api`
+
+Angular realiza el reemplazo del archivo de environment mediante `fileReplacements` en la configuración de producción de `angular.json`.
+
+Cada feature mantiene Signals para representar su estado:
+
+- `data`: información obtenida desde la API.
+- `loading`: indica que la petición se encuentra en curso.
+- `error`: contiene el mensaje que debe mostrarse cuando la petición falla.
+
+Los estados comunes de interfaz se representan mediante:
+
+- `shared/components/loading`
+- `shared/components/error-message`
+
+---

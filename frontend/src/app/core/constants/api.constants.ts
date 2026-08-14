@@ -1,4 +1,6 @@
-const API_BASE_URL = 'http://localhost:3000/api';
+import { environment } from "../../../environments/environment";
+
+const API_BASE_URL = environment.apiUrl;
 
 export const API_ENDPOINTS = {
   profile: `${API_BASE_URL}/profile`,

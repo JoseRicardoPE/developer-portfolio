@@ -1,36 +1,42 @@
 <section>
     <h2>Formación Académica</h2>
-    @for (education of educations(); track education._id) {
-        <article>
-            <h3>{{ education.title }}</h3>
-            <p>{{ education.institution }}</p>
-            <p>{{ education.type }}</p>
-            <p>
-                {{ education.startDate }}
-                @if (education.endDate) {
-                    - {{ education.endDate}}
-                }
-            </p>
-            @if (education.technologies.length > 0) {
-                <h4>Tecnologías</h4>
+    @if (loading()) {
+        <app-loading></app-loading>
+    } @else if (error(); as errorMessage) {
+        <app-error-message [message]="errorMessage"></app-error-message>
+    } @else {
+        @for (education of educations(); track education._id) {
+            <article>
+                <h3>{{ education.title }}</h3>
+                <p>{{ education.institution }}</p>
+                <p>{{ education.type }}</p>
                 <p>
-                    @for (technology of education.technologies; track $index) {
-                        {{ technology }} @if (!$last) { • }
+                    {{ education.startDate }}
+                    @if (education.endDate) {
+                        - {{ education.endDate}}
                     }
                 </p>
-            }
-            @if (education.contributions.length > 0) {
-                <h4>Contribuciones</h4>
-                <ul>
-                    @for (contribution of education.contributions; track $index) {
-                        <li>
-                            {{ contribution }}
-                        </li>
-                    }
-                </ul>
-            }
-        </article>
-    } @empty {
-        <p>No hay información educativa disponible.</p>
+                @if (education.technologies.length > 0) {
+                    <h4>Tecnologías</h4>
+                    <p>
+                        @for (technology of education.technologies; track $index) {
+                            {{ technology }} @if (!$last) { • }
+                        }
+                    </p>
+                }
+                @if (education.contributions.length > 0) {
+                    <h4>Contribuciones</h4>
+                    <ul>
+                        @for (contribution of education.contributions; track $index) {
+                            <li>
+                                {{ contribution }}
+                            </li>
+                        }
+                    </ul>
+                }
+            </article>
+        } @empty {
+            <p>No hay información educativa disponible.</p>
+        }
     }
 </section>
