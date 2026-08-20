@@ -1,0 +1,32 @@
+@use '../styles/vars' as v;
+@use '../styles/mixins' as m;
+
+.portfolio {
+    width: 100%;
+    min-height: 100vh;
+    padding: v.$mobile-padding-y v.$mobile-padding-x;
+}
+
+.portfolio__content {
+    width: 100%;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: v.$mobile-content-gap;
+}
+
+.portfolio__divider {
+    @include m.section-divider;
+}
+
+// RESPONSIVE
+@include m.desktop {
+    .portfolio {
+        padding: v.$desktop-padding-y v.$desktop-padding-x;
+    }
+
+    .portfolio__content {
+        max-width: v.$desktop-content-width;
+        gap: v.$desktop-content-gap;
+    }
+}

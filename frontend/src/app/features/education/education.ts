@@ -3,10 +3,11 @@ import { EducationService } from '../../core/services/education.service';
 import { Education as EducationModel } from '../../core/models/education.model';
 import { Loading } from '../../shared/components/loading/loading';
 import { ErrorMessage } from '../../shared/components/error-message/error-message';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-education',
-  imports: [Loading, ErrorMessage],
+  imports: [Loading, ErrorMessage, DatePipe],
   templateUrl: './education.html',
   styleUrl: './education.scss',
 })
@@ -15,6 +16,7 @@ export class Education implements OnInit {
 
   readonly educations = signal<EducationModel[]>([]);
   readonly loading = signal(true);
+
   readonly error = signal<string | null>(null);
 
   ngOnInit(): void {

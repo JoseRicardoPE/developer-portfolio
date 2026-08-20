@@ -1,0 +1,60 @@
+@use '../../../styles/vars' as v;
+@use '../../../styles/mixins' as m;
+
+.technologies {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: v.$section-gap;
+}
+
+.technologies__title {
+    @include m.h3-mobile;
+}
+
+.technologies__content {
+    display: flex;
+    flex-direction: column;
+    gap: v.$section-gap;
+}
+
+.technologies__group {
+    display: flex;
+    flex-direction: column;
+    gap: v.$spacing-xxxs;
+}
+
+.technologies__category {
+    @include m.label-primary-mobile;
+}
+
+.technologies__items {
+    @include m.body-default-mobile;
+    display: flex;
+    flex-wrap: wrap;
+    color: v.$color-text-secondary;
+    gap: v.$spacing-xxxs;
+}
+
+.technologies__empty {
+    @include m.body-default-mobile;
+}
+
+// Desktop
+@include m.desktop {
+    .technologies__title {
+        font-size: v.$font-size-h3-desktop;
+    }
+
+    .technologies__category {
+        font-size: v.$font-size-lg;
+    }
+
+    .technologies__items {
+        font-size: v.$font-size-md;
+    }
+
+    .technologies__empty {
+        font-size: v.$font-size-md;
+    }
+}

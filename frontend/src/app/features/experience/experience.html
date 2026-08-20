@@ -1,30 +1,45 @@
-<section>
-    <h2>Experiencia Profesional</h2>
+<section class="experience">
+    <h3 class="experience__title">Experiencia Profesional</h3>
     @if (loading()) {
         <app-loading></app-loading>
     } @else if (error(); as errorMessage) {
         <app-error-message [message]="errorMessage"></app-error-message>
     } @else {
-        @for (experience of experiences(); track experience._id) {
-            <article>
-                <h3>{{ experience.position }}</h3>
-                <p>{{ experience.company }}</p>
-                <p>
-                    {{ experience.startDate }}
-                    @if (experience.current) {
-                        - Actualidad
-                    } @else {
-                        - {{ experience.endDate }}
-                    }
-                </p>
-                <ul>
-                    @for (responsibility of experience.responsibilities; track $index) {
-                        <li>{{ responsibility }}</li>
-                    }
-                </ul>
-            </article>
-        } @empty {
-            <p>No hay experiencia profesional disponible.</p>
-        }
+        <div class="experience__content">
+            @for (experience of experiences(); track experience._id) {
+                <article class="experience__item">
+                    <div class="experience__header">
+                        <label class="experience__position">{{ experience.position }}</label>
+                        <span class="experience__company">{{ experience.company }}</span>
+                        <span class="experience__date">
+                            {{ experience.startDate | date:'MMM yyyy' : undefined : 'es-CO' }}
+                            @if (experience.current) {
+                                - Actualidad
+                            } @else {
+                                - {{ experience.endDate | date:'MMM yyyy' : undefined : 'es-CO' }}
+                            }
+                        </span>
+                    </div>
+                    <div class="experience__responsibilities">
+                        <label class="experience__label">Responsabilidades</label>
+                        <ul class="experience__list">
+                            @for (responsibility of experience.responsibilities; track $index) {
+                                <li class="experience__responsibility">
+                                    <span
+                                        class="experience__bullet"
+                                        aria-hidden="true"
+                                    >•</span>
+                                    <span class="experience__responsibility-text">
+                                        {{ responsibility }}
+                                    </span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </article>
+            } @empty {
+                <span class="experience__empty">No hay experiencia profesional disponible.</span>
+            }
+        </div>
     }
 </section>

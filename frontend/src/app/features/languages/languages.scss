@@ -1,0 +1,84 @@
+@use '../../../styles/vars' as v;
+@use '../../../styles/mixins' as m;
+
+.languages {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: v.$section-gap;
+}
+
+.languages__title {
+    @include m.h3-mobile;
+}
+
+.languages__content {
+    display: flex;
+    flex-direction: column;
+    gap: v.$section-gap;
+}
+
+.languages__item {
+    display: flex;
+    flex-direction: column;
+    gap: v.$internal-gap;
+}
+
+.languages__info {
+    display: flex;
+    align-items: center;
+    gap: v.$spacing-xxxs;
+}
+
+.languages__name,
+.languages__level {
+    @include m.body-default-mobile;
+    color: v.$color-text-body;
+}
+
+.languages__description-list {
+    display: flex;
+    flex-direction: column;
+    gap: v.$internal-gap;
+}
+
+.languages__description-item {
+    display: flex;
+    align-items: flex-start;
+    gap: v.$internal-gap;
+}
+
+.languages__bullet {
+    @include m.bullet-mobile;
+    flex-shrink: 0;
+    color: v.$color-primary;
+}
+
+.languages__description-text {
+    @include m.body-relaxed-mobile;
+}
+
+.languages__empty {
+    @include m.body-default-mobile;
+}
+
+// Desktop
+@include m.desktop {
+    .languages__title {
+        font-size: v.$font-size-h3-desktop;
+    }
+
+    .languages__name,
+    .languages__level,
+    .languages__empty {
+        font-size: v.$font-size-md;
+    }
+
+    .languages__description-text {
+        font-size: v.$font-size-md;
+    }
+
+    .languages__bullet {
+        font-size: v.$font-size-bullet-desktop;
+    }
+}

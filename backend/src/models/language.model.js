@@ -8,6 +8,13 @@ const languageSchema = new mongoose.Schema(
       trim: true,
     },
 
+    code: {
+      type: String,
+      required: true,
+      enum: ['es', 'en'],
+      trim: true
+    },
+
     level: {
       type: String,
       required: true,
@@ -15,7 +22,7 @@ const languageSchema = new mongoose.Schema(
     },
 
     description: {
-      type: String,
+      type: [String],
       trim: true,
       default: "",
     },

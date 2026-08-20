@@ -1,0 +1,27 @@
+@use 'vars' as v;
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    font-family: v.$font-family-primary;
+    font-size: v.$font-size-sm;
+    font-weight: v.$font-weight-medium;
+    line-height: v.$line-height-default;
+    background-color: v.$color-background;
+    color: v.$color-text-body;
+    letter-spacing: 0;
+}
+
+a {
+    color: inherit;
+}
+
+button {
+    color: inherit;
+    cursor: pointer;
+}
+
+::selection {
+    background-color: v.$color-primary;
+    color: v.$color-background;
+}

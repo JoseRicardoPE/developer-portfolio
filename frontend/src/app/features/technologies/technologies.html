@@ -1,21 +1,30 @@
-<section>
-    <h2>Technologías</h2>
+<section class="technologies">
+    <h3 class="technologies__title">Tecnologías</h3>
     @if (loading()) {
         <app-loading></app-loading>
     } @else if (error(); as errorMessage) {
         <app-error-message [message]="errorMessage"></app-error-message>
     } @else {
-        @for (technology of technologies(); track technology._id) {
-            <div>
-                <h3>{{ technology.category }}</h3>
-                <p>
-                    @for (item of technology.items; track $index) {
-                        {{ item }} @if (!$last) { • }
-                    }
-                </p>
-            </div>
-        } @empty {
-            <p>No hay tecnologías disponibles.</p>
-        }
+        <div class="technologies__content">
+            @for (technology of technologies(); track technology._id) {
+                <div class="technologies__group">
+                    <span class="technologies__category">{{ technology.category }}</span>
+                    <ul class="technologies__items">
+                        @for (item of technology.items; track $index) {
+                            <li class="technologies__item">
+                                <span class="technologies__item-text">{{ item }}</span>
+                            </li>
+                            @if (!$last) {
+                                <span class="technologies__separator" aria-hidden="true">
+                                    •
+                                </span>
+                            }
+                        }
+                    </ul>
+                </div>
+            } @empty {
+                <span class="technologies__empty">No hay tecnologías disponibles.</span>
+            }
+        </div>
     }
 </section>
