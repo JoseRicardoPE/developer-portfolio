@@ -1,43 +1,99 @@
-<section>
-	<h2>Proyectos Destacados</h2>
-	@if (loading()) {
-		<app-loading></app-loading>
-	} @else if (error(); as errorMessage) {
-		<app-error-message [message]="errorMessage"></app-error-message>
-	} @else {
-		@for (project of projects(); track project._id) {
-			<article>
-				<h3>{{ project.name }}</h3>
-				@if (project.description) {
-					<p>{{ project.description }}</p>
-				}
-				@if (project.url) {
-					<a [href]="project.url" target="_blank" rel="noopener noreferrer"> Ver proyecto </a>
-				}
-				<h4>Tecnologías</h4>
-				<p>
-					@for (technology of project.technologies; track $index) {
-						{{ technology }}
-						@if (!$last) {
-						•
-						}
-					}
-				</p>
-				<h4>Contribuciones</h4>
-				<ul>
-					@for (contribution of project.contributions; track $index) {
-						<li>{{ contribution }}</li>
-					}
-				</ul>
-				@if (project.repository) {
-					<a [href]="project.url" target="_blank" rel="noopener noreferrer"> Repositorio </a>
-				}
-				@if (project.relatedExperience) {
-					<p>Experiencia Relacionada:{{ project.relatedExperience }}</p>
-				}
-			</article>
-		} @empty {
-			<p>No hay proyectos disponibles.</p>
-		}
-	}
+<section class="projects">
+    <h3 class="projects__title">Proyectos Destacados</h3>
+
+    @if (loading()) {
+        <app-loading></app-loading>
+    } @else if (error(); as errorMessage) {
+        <app-error-message [message]="errorMessage"></app-error-message>
+    } @else {
+        <div class="projects__content">
+            @for (project of projects(); track project._id) {
+                <article class="projects__article">
+                    <div class="projects__header">
+                        <h4 class="projects__name">
+                            {{ project.name }}
+                        </h4>
+
+                        @if (project.description) {
+                            <p class="projects__description">
+                                {{ project.description }}
+                            </p>
+                        }
+
+                        @if (project.url) {
+                            <a
+                                class="projects__link"
+                                [href]="project.url"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Ver proyecto
+                            </a>
+                        }
+                    </div>
+
+                    <div class="projects__technologies">
+                        <span class="projects__label">Tecnologías</span>
+
+                        <ul class="projects__items">
+                            @for (technology of project.technologies; track $index) {
+                                <li class="projects__item">
+									{{ technology }}
+								</li>
+                                @if (!$last) {
+                                    <span class="projects__separator">
+										•
+									</span>
+                                }
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="projects__contributions">
+                        <span class="projects__label">Contribuciones</span>
+
+                        <ul class="projects__contribution-list">
+                            @for (contribution of project.contributions; track $index) {
+                                <li class="projects__contribution-item">
+                                    <span class="projects__bullet" aria-hidden="true"> • </span>
+
+                                    <span class="projects__contribution-text">
+                                        {{ contribution }}
+                                    </span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    @if (project.repository || project.relatedExperience) {
+                        <div class="projects__additional-info">
+                            @if (project.repository) {
+                                <a
+                                    class="projects__repository-link"
+                                    [href]="project.repository"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Repositorio
+                                </a>
+                            }
+
+                            @if (project.relatedExperience) {
+                                <p class="projects__related-experience">
+                                    <span class="projects__related-experience-label">
+                                        Experiencia relacionada:
+                                    </span>
+									<span class="projects__related-experience-value">
+										{{ project.relatedExperience }}
+									</span>
+                                </p>
+                            }
+                        </div>
+                    }
+                </article>
+            } @empty {
+                <p class="projects__empty">No hay proyectos disponibles.</p>
+            }
+        </div>
+    }
 </section>

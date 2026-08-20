@@ -1,24 +1,41 @@
-<section>
-    <h2>Idiomas</h2>
+<section class="languages">
+    <h3 class="languages__title">Idiomas</h3>
+
     @if (loading()) {
         <app-loading></app-loading>
     } @else if (error(); as errorMessage) {
         <app-error-message [message]="errorMessage"></app-error-message>
     } @else {
-        @for (language of languages(); track language._id) {
-            <article>
-                <h3>{{ language.language }}</h3>
-                <p>{{ language.level }}</p>
-                @if (language.description) {
-                    <p>
-                        {{ language.description }}
-                    </p>
-                }
-            </article>
-        } @empty {
-            <p>
-                No hay idiomas disponibles.
-            </p>
-        }
+        <div class="languages__content">
+            @for (language of languages(); track language._id) {
+                <article class="languages__item">
+                    <div class="languages__info">
+                        <span class="languages__name">
+                            {{ language.language }}
+                        </span>
+
+                        <span class="languages__level">
+                            {{ language.level }}
+                        </span>
+                    </div>
+
+                    @if (language.description.length > 0) {
+                        <ul class="languages__description-list">
+                            @for (description of language.description; track $index) {
+                                <li class="languages__description-item">
+                                    <span class="languages__bullet" aria-hidden="true"> • </span>
+
+                                    <span class="languages__description-text">
+                                        {{ description }}
+                                    </span>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </article>
+            } @empty {
+                <span class="languages__empty"> No hay idiomas disponibles. </span>
+            }
+        </div>
     }
 </section>

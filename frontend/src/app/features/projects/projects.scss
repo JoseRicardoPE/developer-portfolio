@@ -1,0 +1,144 @@
+@use '../../../styles/vars' as v;
+@use '../../../styles/mixins' as m;
+
+.projects {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: v.$section-gap;
+}
+
+.projects__title {
+    @include m.h3-mobile;
+}
+
+.projects__content {
+    display: flex;
+    flex-direction: column;
+    gap: v.$spacing-lg;
+}
+
+.projects__article {
+    display: flex;
+    flex-direction: column;
+    gap: v.$internal-gap;
+}
+
+.projects__header {
+    display: flex;
+    flex-direction: column;
+}
+
+.projects__name {
+    @include m.label-primary-mobile;
+}
+
+.projects__description {
+    @include m.body-default-mobile;
+}
+
+.projects__link {
+    @include m.body-default-mobile;
+    color: v.$color-primary;
+}
+
+.projects__technologies {
+    display: flex;
+    flex-direction: column;
+    gap: v.$spacing-xxxs;
+}
+
+.projects__label {
+    @include m.label-primary-mobile;
+}
+
+.projects__items {
+    @include m.body-default-mobile;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: v.$spacing-xxs;
+}
+
+.projects__contributions {
+    display: flex;
+    flex-direction: column;
+    gap: v.$internal-gap;
+    .projects__label {
+        color: v.$color-text-secondary;
+    }
+}
+
+.projects__contribution-list {
+    display: flex;
+    flex-direction: column;
+    gap: v.$internal-gap;
+}
+
+.projects__contribution-item {
+    display: flex;
+    align-items: flex-start;
+    gap: v.$internal-gap;
+}
+
+.projects__bullet {
+    @include m.bullet-mobile;
+    flex-shrink: 0;
+}
+
+.projects__contribution-text {
+    @include m.body-relaxed-mobile;
+}
+
+.projects__additional-info {
+    display: flex;
+    flex-direction: column;
+    gap: v.$internal-gap;
+}
+
+.projects__repository-link {
+    @include m.label-medium-mobile;
+    width: fit-content;
+    color: v.$color-primary;
+}
+
+.projects__related-experience {
+    @include m.body-default-mobile;
+}
+
+.projects__related-experience-label {
+    font-weight: v.$font-weight-bold;
+}
+
+// Desktop
+@include m.desktop {
+    .projects__title {
+        font-size: v.$font-size-h3-desktop;
+    }
+
+    .projects__name,
+    .projects__label {
+        font-size: v.$font-size-lg;
+    }
+
+    .projects__description,
+    .projects__items,
+    .projects__related-experience {
+        font-size: v.$font-size-md;
+    }
+
+    .projects__link {
+        font-size: v.$font-size-md;
+    }
+
+    .projects__bullet {
+        font-size: v.$font-size-bullet-desktop;
+    }
+
+    .projects__contribution-text {
+        font-size: v.$font-size-md;
+    }
+
+    .projects__repository-link {
+        font-size: v.$font-size-md;
+    }
+}

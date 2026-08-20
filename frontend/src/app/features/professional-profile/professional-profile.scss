@@ -1,0 +1,34 @@
+@use '../../../styles/vars' as v;
+@use '../../../styles/mixins' as m;
+
+.professional-profile {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: v.$section-gap;
+}
+
+.professional-profile__title {
+    @include m.h3-mobile;
+}
+
+.professional-profile__description {
+    display: flex;
+    flex-direction: column;
+    gap: v.$internal-gap;
+}
+
+.professional-profile__paragraph {
+    @include m.body-relaxed-mobile;
+}
+
+// Desktop
+@include m.desktop {
+    .professional-profile__title {
+        font-size: v.$font-size-h3-desktop;
+    }
+
+    .professional-profile__paragraph {
+        font-size: v.$font-size-md;
+    }
+}

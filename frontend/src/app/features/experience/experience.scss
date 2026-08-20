@@ -1,0 +1,104 @@
+@use '../../../styles/vars' as v;
+@use '../../../styles/mixins' as m;
+
+.experience {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: v.$section-gap;
+}
+.experience__title {
+    @include m.h3-mobile;
+}
+
+.experience__content {
+    display: flex;
+    flex-direction: column;
+    gap: v.$spacing-lg;
+}
+
+.experience__item {
+    display: flex;
+    flex-direction: column;
+    gap: v.$internal-gap;
+}
+
+.experience__header {
+    display: flex;
+    flex-direction: column;
+}
+
+.experience__position {
+    @include m.label-primary-mobile;
+}
+
+.experience__company {
+    @include m.label-medium-mobile;
+}
+
+.experience__date {
+    @include m.small-mobile;
+}
+
+.experience__responsibilities {
+    display: flex;
+    flex-direction: column;
+    gap: v.$internal-gap;
+}
+
+.experience__label {
+    @include m.label-primary-mobile;
+    color: v.$color-text-secondary;
+}
+
+.experience__list {
+    display: flex;
+    flex-direction: column;
+    gap: v.$internal-gap;
+}
+
+.experience__responsibility {
+    display: flex;
+    align-items: flex-start;
+    gap: v.$internal-gap;
+}
+
+.experience__bullet {
+    @include m.bullet-mobile;
+    flex-shrink: 0;
+}
+
+.experience__responsibility-text {
+    @include m.body-relaxed-mobile;
+}
+
+// Desktop
+@include m.desktop {
+    .experience__title {
+        font-size: v.$font-size-h3-desktop;
+    }
+
+    .experience__position {
+        font-size: v.$font-size-lg;
+    }
+
+    .experience__company {
+        font-size: v.$font-size-md;
+    }
+
+    .experience__date {
+        font-size: v.$font-size-sm;
+    }
+
+    .experience__label {
+        font-size: v.$font-size-lg;
+    }
+
+    .experience__bullet {
+        font-size: v.$font-size-bullet-desktop;
+    }
+
+    .experience__responsibility-text {
+        font-size: v.$font-size-md;
+    }
+}

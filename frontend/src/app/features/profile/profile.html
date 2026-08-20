@@ -1,17 +1,64 @@
-<section>
+<section class="profile">
     @if (loading()) {
         <app-loading></app-loading>
     } @else if (error(); as errorMessage) {
         <app-error-message [message]="errorMessage"></app-error-message>
     } @else if (profile(); as profileData) {
-        <h1>{{ profileData.name }}</h1>
-        <h2>{{ profileData.lastname }}</h2>
-        <h3>{{ profileData.title }}</h3>
-        <p>{{ profileData.subtitle }}</p>
-        <p>{{ profileData.location }}</p>
-        <p>{{ profileData.email }}</p>
-        <p>{{ profileData.phone }}</p>
-        <p>{{ profileData.linkedin }}</p>
-        <p>{{ profileData.github }}</p>
+        <div class="profile__identity">
+            <h1 class="profile__name">{{ profileData.name }}</h1>
+            <h2 class="profile__lastname">{{ profileData.lastname }}</h2>
+        </div>
+
+        <div class="profile__role">
+            <span class="profile__role-title">{{ profileData.title }}</span>
+            <span class="profile__role-subtitle">{{ profileData.subtitle }}</span>
+        </div>
+
+        <div class="profile__contact">
+            <div class="profile__contact-info">
+                <div class="profile__contact-item">
+                    <fa-icon class="profile__contact-icon" [icon]="faLocationDot"></fa-icon>
+                    <span class="profile__contact-text">
+                        {{ profileData.location }}
+                    </span>
+                </div>
+
+                <a class="profile__contact-item" [href]="'mailto:' + profileData.email">
+                    <fa-icon class="profile__contact-icon" [icon]="faEnvelope"></fa-icon>
+                    <span class="profile__contact-text">
+                        {{ profileData.email }}
+                    </span>
+                </a>
+
+                <a class="profile__contact-item" [href]="'tel:' + profileData.phone">
+                    <fa-icon class="profile__contact-icon" [icon]="faPhone"></fa-icon>
+                    <span class="profile__contact-text">
+                        {{ profileData.phone }}
+                    </span>
+                </a>
+            </div>
+
+            <div class="profile__social-links">
+                <a
+                    class="profile__social-link"
+                    [href]="profileData.linkedin"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <fa-icon class="profile__social-icon" [icon]="faLinkedin"></fa-icon>
+                    <span class="profile__social-text">LinkedIn</span>
+                </a>
+
+                <a
+                    class="profile__social-link"
+                    [href]="profileData.github"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <fa-icon class="profile__social-icon" [icon]="faGithub"></fa-icon>
+                    <span class="profile__social-text">GitHub</span>
+                </a>
+            </div>
+        </div>
     }
 </section>

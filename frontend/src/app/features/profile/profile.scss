@@ -1,0 +1,140 @@
+@use '../../../styles/vars' as v;
+@use '../../../styles/mixins' as m;
+
+.profile {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: v.$section-gap;
+}
+
+.profile__identity {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile__name {
+    @include m.h1-mobile;
+}
+
+.profile__lastname {
+    @include m.h2-mobile;
+}
+
+.profile__role {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile__role-title,
+.profile__role-subtitle {
+    @include m.label-role-mobile;
+}
+
+.profile__role-title {
+    color: v.$color-primary;
+}
+
+.profile__role-subtitle {
+    color: v.$color-text-secondary;
+}
+
+.profile__contact {
+    display: flex;
+    flex-direction: column;
+    gap: v.$section-gap;
+}
+
+.profile__contact-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: v.$internal-gap;
+}
+
+.profile__contact-item {
+    @include m.label-contact-mobile;
+    display: inline-flex;
+    align-items: center;
+    gap: v.$spacing-xxs;
+}
+
+.profile__contact-icon {
+    width: v.$icon-size-mobile;
+    height: v.$icon-size-mobile;
+    flex: 0 0 v.$icon-size-mobile;
+    color: v.$color-primary;
+}
+
+.profile__social-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile__social-link {
+    @include m.label-contact-mobile;
+    display: inline-flex;
+    align-items: center;
+    gap: v.$spacing-xxs;
+}
+
+.profile__social-icon {
+    width: v.$icon-size-mobile;
+    height: v.$icon-size-mobile;
+    flex: 0 0 v.$icon-size-mobile;
+    color: v.$color-primary;
+}
+
+// Desktop
+@include m.desktop {
+    .profile__name {
+        font-size: v.$font-size-h1-desktop;
+    }
+
+    .profile__lastname {
+        font-size: v.$font-size-h2-desktop;
+    }
+
+    .profile__role-title,
+    .profile__role-subtitle {
+        font-size: v.$font-size-lg;
+    }
+
+    .profile__contact {
+        flex-direction: row;
+        align-items: center;
+        gap: v.$spacing-lg;
+    }
+
+    .profile__contact-info {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        gap: v.$spacing-lg;
+    }
+
+    .profile__contact-item {
+        font-size: v.$font-size-sm;
+    }
+
+    .profile__contact-icon {
+        width: v.$icon-size-desktop;
+        height: v.$icon-size-desktop;
+        flex-basis: v.$icon-size-desktop;
+    }
+
+    .profile__social-links {
+        justify-content: flex-start;
+        gap: v.$spacing-lg;
+    }
+
+    .profile__social-link {
+        font-size: v.$font-size-sm;
+    }
+
+    .profile__social-icon {
+        width: v.$icon-size-desktop;
+        height: v.$icon-size-desktop;
+        flex-basis: v.$icon-size-desktop;
+    }
+}

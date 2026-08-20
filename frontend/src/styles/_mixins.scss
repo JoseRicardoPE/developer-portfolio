@@ -1,0 +1,171 @@
+@use 'vars' as v;
+@use 'functions' as f;
+
+// Design System mixins.
+// Mobile styles are the default implementation.
+// Desktop variants are applied through responsive mixins.
+
+// ========================================
+// Typography - Base
+// ========================================
+
+// Base utility used by all typography mixins.
+// Centralizes font size, weight, line-height and color.
+@mixin text-style(
+    $size,
+    $weight,
+    $line-height: v.$line-height-default,
+    $color: v.$color-text-primary
+) {
+    font-size: $size;
+    font-weight: $weight;
+    line-height: $line-height;
+    color: $color;
+}
+
+// ========================================
+// Typography - Mobile Headings
+// ========================================
+
+@mixin h1-mobile {
+    @include text-style(
+        v.$font-size-h1-mobile,
+        v.$font-weight-bold
+    );
+}
+
+@mixin h2-mobile {
+    @include text-style(
+        v.$font-size-h2-mobile,
+        v.$font-weight-medium
+    );
+}
+
+@mixin h3-mobile {
+    @include text-style(
+        v.$font-size-h3-mobile,
+        v.$font-weight-bold
+    );
+}
+
+// ========================================
+// Typography - Mobile Labels
+// ========================================
+
+// Used for role information such as:
+// "Frontend Engineer (Angular)".
+@mixin label-role-mobile {
+    @include text-style(
+        v.$font-size-md,
+        v.$font-weight-medium
+    );
+}
+
+// Used for contact and social information.
+@mixin label-contact-mobile {
+    @include text-style(
+        v.$font-size-xs,
+        v.$font-weight-medium,
+        v.$line-height-default,
+        v.$color-text-secondary
+    );
+}
+
+// Main label style used for categories and subtitles.
+@mixin label-primary-mobile {
+    @include text-style(
+        v.$font-size-md,
+        v.$font-weight-bold
+    );
+}
+
+// Secondary label style.
+@mixin label-medium-mobile {
+    @include text-style(
+        v.$font-size-sm,
+        v.$font-weight-medium
+    );
+}
+
+// ========================================
+// Typography - Mobile Body
+// ========================================
+
+// Long-form descriptive text.
+@mixin body-relaxed-mobile {
+    @include text-style(
+        v.$font-size-sm,
+        v.$font-weight-regular,
+        v.$line-height-relaxed,
+        v.$color-text-body
+    );
+}
+
+// Default supporting/body text.
+@mixin body-default-mobile {
+    @include text-style(
+        v.$font-size-sm,
+        v.$font-weight-medium,
+        v.$line-height-default,
+        v.$color-text-secondary
+    );
+}
+
+// Small metadata text such as dates.
+@mixin small-mobile {
+    @include text-style(
+        v.$font-size-xs,
+        v.$font-weight-medium,
+        v.$line-height-default,
+        v.$color-text-secondary
+    );
+}
+
+// ========================================
+// Typography - Bullets
+// ========================================
+
+@mixin bullet-mobile {
+    @include text-style(
+        v.$font-size-bullet-mobile,
+        v.$font-weight-bold,
+        v.$line-height-default,
+        v.$color-primary
+    );
+}
+
+// ========================================
+// Layout Utilities
+// ========================================
+
+// Horizontal divider used between the main CV sections.
+@mixin section-divider {
+    width: 100%;
+    height: f.calculateRem(2px);
+    background-color: v.$color-primary;
+}
+
+// ========================================
+// Responsive Breakpoints
+// ========================================
+
+// Tablet and larger.
+@mixin tablet {
+    @media (min-width: v.$breakpoint-tablet) {
+        @content;
+    }
+}
+
+// Desktop and larger.
+@mixin desktop {
+    @media (min-width: v.$breakpoint-desktop) {
+        @content;
+    }
+}
+
+// Wide desktop screens.
+@mixin wide {
+    @media (min-width: v.$breakpoint-wide) {
+        @content;
+    }
+}

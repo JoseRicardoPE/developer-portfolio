@@ -1,0 +1,73 @@
+@use 'functions' as f;
+
+// Colors
+$color-primary: #2563eb;
+$color-text-primary: #111827;
+$color-text-body: #374151;
+$color-text-secondary: #6b7280;
+$color-background: #ffffff;
+
+// Font Family
+$font-family-primary: 'Inter', sans-serif;
+
+// Font Sizes - Global Scale
+$font-size-xs: f.calculateRem(12px);
+$font-size-sm: f.calculateRem(14px);
+$font-size-md: f.calculateRem(16px);
+$font-size-lg: f.calculateRem(18px);
+
+// Typography - Desktop
+$font-size-h1-desktop: f.calculateRem(36px);
+$font-size-h2-desktop: f.calculateRem(24px);
+$font-size-h3-desktop: f.calculateRem(20px);
+
+// Typography - Mobile
+$font-size-h1-mobile: f.calculateRem(30px);
+$font-size-h2-mobile: f.calculateRem(20px);
+$font-size-h3-mobile: f.calculateRem(18px);
+
+// Bullets
+$font-size-bullet-mobile: f.calculateRem(12px);
+$font-size-bullet-desktop: f.calculateRem(14px);
+
+// Icons
+$icon-size-mobile: f.calculateRem(14px);
+$icon-size-desktop: f.calculateRem(16px);
+
+// Font Weights
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+// Line Heights
+$line-height-default: 1.323;
+$line-height-relaxed: 1.5;
+
+// Spacing
+$spacing-xxxs: f.calculateRem(4px);
+$spacing-xxs: f.calculateRem(6px);
+$spacing-xs: f.calculateRem(8px);
+$spacing-sm: f.calculateRem(12px);
+$spacing-md: f.calculateRem(16px);
+$spacing-lg: f.calculateRem(24px);
+$spacing-xl: f.calculateRem(48px);
+
+// Mobile Layout
+$mobile-reference-width: 375px;
+$mobile-padding-x: f.calculateRem(16px);
+$mobile-padding-y: f.calculateRem(24px);
+$mobile-content-gap: f.calculateRem(24px);
+$section-gap: f.calculateRem(12px);
+$internal-gap: f.calculateRem(8px);
+
+// Desktop Layout
+$desktop-reference-width: 1440px;
+$desktop-content-width: f.calculateRem(1200px);
+$desktop-padding-x: f.calculateRem(24px);
+$desktop-padding-y: f.calculateRem(48px);
+$desktop-content-gap: f.calculateRem(24px);
+
+// Breakpoints
+$breakpoint-tablet: f.calculateRem(768px);
+$breakpoint-desktop: f.calculateRem(1024px);
+$breakpoint-wide: f.calculateRem(1440px);
