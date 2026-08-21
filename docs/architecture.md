@@ -2,7 +2,7 @@
 
 ## Arquitectura
 
-El proyecto estará compuesto por dos aplicaciones independientes:
+El proyecto está compuesto por dos aplicaciones independientes:
 
 - Frontend: Angular 21
 - Backend: Node.js + Express
@@ -130,6 +130,118 @@ La API utiliza la siguiente convención:
 - `ObjectId válido inexistente → 404 Not Found`
 - `Documento encontrado        → 200 OK`
 
+## Frontend
+
+El frontend está desarrollado con Angular 21 como una SPA (Single Page Application).
+
+La aplicación está organizada por responsabilidades, separando los elementos globales, componentes reutilizables y funcionalidades principales del portfolio.
+
+### Core
+
+`src/app/core/` contiene elementos transversales de la aplicación que no pertenecen a una feature visual específica.
+
+Actualmente incluye:
+
+- `models/`: interfaces y modelos utilizados para tipar los datos recibidos desde la API.
+- `enums/`: enumeraciones compartidas por la aplicación.
+- `services/`: servicios responsables de la comunicación con la API REST.
+- `interceptors/`: interceptores HTTP globales.
+- `constants/`: constantes compartidas, incluyendo la configuración de endpoints de la API.
+
+### Shared
+
+`src/app/shared/` contiene elementos reutilizables que pueden ser utilizados por diferentes partes de la aplicación.
+
+Actualmente incluye componentes compartidos para:
+
+- Estados de carga.
+- Visualización de errores.
+
+La estructura también está preparada para incorporar directives, pipes y utilities compartidos cuando sean necesarios.
+
+### Features
+
+`src/app/features/` contiene las secciones funcionales principales del CV.
+
+Actualmente se encuentran implementadas:
+
+- `profile`
+- `professional-profile`
+- `technologies`
+- `experience`
+- `projects`
+- `education`
+- `languages`
+
+Cada feature mantiene sus responsabilidades de presentación encapsuladas en sus archivos TypeScript, HTML y SCSS.
+
+### Design System
+
+El frontend utiliza un Design System basado en SCSS para centralizar los estilos y mantener consistencia visual entre las diferentes secciones del CV.
+
+Los estilos globales se encuentran en:
+
+`src/styles/`
+
+La estructura está compuesta por:
+
+- `_vars.scss`: Design Tokens globales como colores, tipografía, tamaños, spacing, dimensiones de iconos, layout y breakpoints.
+- `_functions.scss`: funciones SCSS reutilizables.
+- `_mixins.scss`: mixins reutilizables para tipografía, layout y responsive.
+- `_reset.scss`: normalización y reset de estilos del navegador.
+- `_base.scss`: estilos base globales de la aplicación.
+
+`styles.scss` actúa como punto de entrada de los estilos globales.
+
+### Mobile First
+
+La estrategia responsive sigue un enfoque Mobile First.
+
+Los estilos base de los componentes corresponden a Mobile y las adaptaciones para resoluciones superiores se realizan mediante breakpoints definidos globalmente.
+
+Los breakpoints actuales son:
+
+- Tablet: `768px`
+- Desktop: `1024px`
+- Wide: `1440px`
+
+Cuando entre Mobile y Desktop únicamente cambia una propiedad, como `font-size`, se sobrescribe únicamente dicha propiedad dentro del breakpoint correspondiente, evitando duplicar estilos innecesariamente.
+
+### Layout
+
+El layout utiliza como referencias principales los diseños definidos en Figma.
+
+Mobile:
+
+- Reference width: `375px`
+- Padding: `24px 16px`
+- Content gap: `24px`
+
+Desktop:
+
+- Reference width: `1440px`
+- Maximum content width: `1200px`
+- Padding: `48px 24px`
+- Content gap: `24px`
+
+Las secciones principales utilizan un `gap` de `12px` y los grupos internos que requieren menor separación utilizan un `gap` de `8px`.
+
+### Metodología BEM
+
+Las clases CSS de los componentes utilizan la metodología BEM (Block, Element, Modifier).
+
+Cada feature funciona como un bloque independiente y sus elementos internos utilizan la nomenclatura:
+
+`block__element`
+
+Esto permite mantener estilos encapsulados, predecibles y fáciles de mantener.
+
+### Iconografía
+
+La aplicación utiliza Font Awesome para la iconografía del frontend.
+
+Los tamaños de los iconos se encuentran centralizados dentro de los Design Tokens y se adaptan según el breakpoint correspondiente.
+
 ## Estructura del proyecto
 
 ```text
@@ -200,7 +312,8 @@ developer-portfolio/
 │   │   │   │   │   └── api-response.model.ts
 │   │   │   │   │
 │   │   │   │   ├── enums/
-│   │   │   │   │   └── education-type.enum.ts
+│   │   │   │   │   ├── education-type.enum.ts
+│   │   │   │   │   └── language-type.enum.ts
 │   │   │   │   ├── services/
 │   │   │   │   │   ├── profile.service.ts
 │   │   │   │   │   ├── professional-profile.service.ts
@@ -218,8 +331,6 @@ developer-portfolio/
 │   │   │   │
 │   │   │   ├── shared/
 │   │   │   │   ├── components/
-│   │   │   │   │   ├── section-title/
-│   │   │   │   │   │
 │   │   │   │   │   ├── loading/
 │   │   │   │   │   │   ├── loading.ts
 │   │   │   │   │   │   ├── loading.html
