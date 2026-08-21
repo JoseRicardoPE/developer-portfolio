@@ -226,3 +226,165 @@ Los estados comunes de interfaz se representan mediante:
 - `shared/components/error-message`
 
 ---
+
+## DEC-009 — Design System centralizado con SCSS
+
+**Fecha:** 2026-08-20
+
+### Decisión
+
+El frontend utilizará un Design System centralizado basado en SCSS para mantener consistencia visual entre las diferentes secciones del portfolio.
+
+Los estilos globales se organizarán en:
+
+- `_vars.scss`: Design Tokens globales.
+- `_functions.scss`: funciones SCSS reutilizables.
+- `_mixins.scss`: mixins reutilizables.
+- `_reset.scss`: normalización de estilos del navegador.
+- `_base.scss`: estilos base de la aplicación.
+
+El archivo `styles.scss` actuará como punto de entrada de los estilos globales.
+
+Los Design Tokens centralizarán valores reutilizables como:
+
+- Colores.
+- Tipografía.
+- Tamaños de fuente.
+- Pesos tipográficos.
+- Line heights.
+- Spacing.
+- Tamaños de iconos.
+- Valores de layout.
+- Breakpoints.
+
+Las variables globales representarán valores reutilizables y no estarán asociadas innecesariamente a componentes específicos cuando compartan el mismo valor.
+
+### Motivo
+
+Centralizar los valores visuales evita repetir valores directamente en los estilos de cada componente y mantiene una única fuente de referencia para el diseño.
+
+Una escala global permite reutilizar valores equivalentes aunque pertenezcan a diferentes elementos visuales.
+
+Esto facilita:
+
+- Mantener consistencia entre componentes.
+- Realizar cambios globales.
+- Reducir duplicación.
+- Mantener los estilos escalables.
+- Conservar correspondencia con el Design System definido en Figma.
+
+### Implementación
+
+Los estilos globales se encuentran en:
+
+`frontend/src/styles/`
+
+Los componentes consumen las variables y mixins mediante el sistema de módulos de Sass utilizando `@use`.
+
+Los estilos específicos de cada feature permanecen encapsulados en su correspondiente archivo `.scss`.
+
+---
+
+## DEC-010 — Estrategia responsive Mobile First
+
+**Fecha:** 2026-08-20
+
+### Decisión
+
+La implementación responsive del frontend seguirá una estrategia Mobile First.
+
+Los estilos base de los componentes representarán la versión Mobile y las adaptaciones para resoluciones superiores se aplicarán mediante media queries con `min-width`.
+
+Los breakpoints estarán centralizados como Design Tokens globales:
+
+- Tablet: `768px`
+- Desktop: `1024px`
+- Wide: `1440px`
+
+Las referencias principales de diseño serán:
+
+- Mobile: `375px`
+- Desktop: `1440px`
+
+Cuando una propiedad mantenga el mismo comportamiento entre Mobile y Desktop, no se volverá a declarar dentro del breakpoint.
+
+Si únicamente cambia una propiedad, como `font-size`, se sobrescribirá solamente esa propiedad en Desktop en lugar de aplicar nuevamente un conjunto completo de estilos.
+
+### Motivo
+
+Mobile First permite definir primero la estructura mínima necesaria y extender progresivamente el diseño conforme aumenta el espacio disponible.
+
+Evitar redeclarar propiedades que ya fueron definidas en los estilos base reduce duplicación de CSS y mantiene las reglas responsive más simples.
+
+Centralizar los breakpoints evita utilizar valores arbitrarios directamente en los componentes y mantiene un comportamiento responsive consistente en toda la aplicación.
+
+### Implementación
+
+Los breakpoints se encuentran definidos en:
+
+`frontend/src/styles/_vars.scss`
+
+Los mixins responsive se encuentran centralizados en:
+
+`frontend/src/styles/_mixins.scss`
+
+Los componentes definen sus estilos Mobile como estilos base y utilizan los mixins responsive únicamente cuando necesitan modificar su presentación para resoluciones superiores.
+
+---
+
+## DEC-011 — Metodología BEM para nomenclatura CSS
+
+**Fecha:** 2026-08-20
+
+### Decisión
+
+Las clases CSS de las features del frontend utilizarán la metodología BEM (Block, Element, Modifier).
+
+Cada feature visual se considerará un bloque independiente.
+
+Los elementos que pertenecen al bloque utilizarán la nomenclatura:
+
+`block__element`
+
+Cuando sea necesario representar una variante o estado visual mediante una clase CSS, podrá utilizarse:
+
+`block__element--modifier`
+
+o:
+
+`block--modifier`
+
+según corresponda.
+
+### Motivo
+
+BEM proporciona una convención predecible para nombrar las clases y permite identificar claramente la relación entre un componente y sus elementos internos.
+
+Esto facilita:
+
+- Evitar nombres de clases ambiguos.
+- Mantener los estilos asociados a cada feature.
+- Comprender la estructura del componente desde el template.
+- Reducir conflictos entre estilos.
+- Facilitar el mantenimiento conforme crezca la aplicación.
+
+### Implementación
+
+Cada feature utiliza su nombre como bloque principal.
+
+Por ejemplo:
+
+`technologies`
+
+Sus elementos internos utilizan nombres derivados del bloque:
+
+- `technologies__title`
+- `technologies__content`
+- `technologies__group`
+- `technologies__category`
+- `technologies__items`
+- `technologies__item`
+
+Los nombres BEM describen la responsabilidad estructural o semántica del elemento y no su apariencia visual.
+
+---
