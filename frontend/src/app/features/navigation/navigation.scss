@@ -1,0 +1,83 @@
+@use '../../../styles/vars' as v;
+@use '../../../styles/mixins' as m;
+@use '../../../styles/functions' as f;
+
+:host {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.navigation__trigger {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navigation__hamburger {
+    width: f.calculateRem(40px);
+    height: f.calculateRem(40px);
+}
+
+.navigation__icon {
+    font-size: f.calculateRem(24px);
+    color: v.$color-text-primary;
+}
+
+.navigation__menu {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    padding: v.$spacing-md;
+    background-color: v.$color-background-menu;
+    border-radius: f.calculateRem(8px);
+    box-shadow: v.$shadow-sm;
+}
+
+.navigation__item {
+    display: flex;
+    min-height: f.calculateRem(40px);
+    padding: f.calculateRem(10px) v.$spacing-xs;
+    color: v.$color-text-secondary;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: v.$color-primary;
+    }
+
+    &:focus-visible {
+        outline: f.calculateRem(2px) solid v.$color-primary;
+        outline-offset: f.calculateRem(2px);
+    }
+}
+
+.navigation__scroll-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    right: f.calculateRem(24px);
+    bottom: f.calculateRem(24px);
+    width: f.calculateRem(44px);
+    height: f.calculateRem(44px);
+    border: 0;
+    border-radius: 50%;
+    background-color: v.$color-primary;
+    color: v.$color-background-menu;
+    cursor: pointer;
+    z-index: 100;
+    box-shadow: v.$shadow-sm;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: v.$shadow-md;
+    }
+    
+    &:focus-visible {
+        outline: f.calculateRem(2px) solid v.$color-primary;
+        outline-offset: f.calculateRem(3px);
+    }
+}

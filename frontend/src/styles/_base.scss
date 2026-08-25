@@ -10,6 +10,7 @@ body {
     background-color: v.$color-background;
     color: v.$color-text-body;
     letter-spacing: 0;
+    scroll-behavior: smooth;
 }
 
 a {
