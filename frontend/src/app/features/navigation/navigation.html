@@ -1,0 +1,33 @@
+<section class="navigation">
+    <div class="navigation__trigger">
+        <button
+            class="navigation__hamburger"
+            type="button"
+            [attr.aria-expanded]="isOpen()"
+            aria-controls="navigation-menu"
+            [attr.aria-label]="isOpen() ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'"
+            (click)="toggleMenu()"
+        >
+            <fa-icon class="navigation__icon" [icon]="isOpen() ? faXmark : faBars"></fa-icon>
+        </button>
+    </div>
+    @if (isOpen()) {
+        <nav class="navigation__menu" id="navigation-menu" aria-label="Navegación del CV">
+            @for (item of menuItems; track item.fragment) {
+                <a class="navigation__item" [href]="'#' + item.fragment" (click)="closeMenu()">
+                    {{ item.label }}
+                </a>
+            }
+        </nav>
+    }
+    @if (showScrollTop()) {
+        <button
+            class="navigation__scroll-top"
+            type="button"
+            aria-label="Ir al inicio"
+            (click)="scrollToTop()"
+        >
+            <fa-icon [icon]="faArrowUp"></fa-icon>
+        </button>
+    }
+</section>

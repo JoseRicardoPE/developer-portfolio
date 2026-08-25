@@ -6,6 +6,7 @@ $color-text-primary: #111827;
 $color-text-body: #374151;
 $color-text-secondary: #6b7280;
 $color-background: #ffffff;
+$color-background-menu: #f8fafc;
 
 // Font Family
 $font-family-primary: 'Inter', sans-serif;
@@ -51,6 +52,10 @@ $spacing-sm: f.calculateRem(12px);
 $spacing-md: f.calculateRem(16px);
 $spacing-lg: f.calculateRem(24px);
 $spacing-xl: f.calculateRem(48px);
+
+// Shadows
+$shadow-sm: 0 f.calculateRem(2px) f.calculateRem(8px) rgba(0, 0, 0, 0.18);
+$shadow-md: 0 f.calculateRem(4px) f.calculateRem(12px) rgba(0, 0, 0, 0.2);
 
 // Mobile Layout
 $mobile-reference-width: 375px;

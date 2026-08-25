@@ -6,6 +6,7 @@ import { Experience } from './features/experience/experience';
 import { Projects } from './features/projects/projects';
 import { Education } from './features/education/education';
 import { Languages } from './features/languages/languages';
+import { Navigation } from "./features/navigation/navigation";
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,8 @@ import { Languages } from './features/languages/languages';
     Projects,
     Education,
     Languages,
-  ],
+    Navigation
+],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
