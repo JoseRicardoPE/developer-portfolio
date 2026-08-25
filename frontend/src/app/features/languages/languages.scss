@@ -33,7 +33,8 @@
 .languages__name,
 .languages__level {
     @include m.body-default-mobile;
-    color: v.$color-text-body;
+    // color: v.$color-text-body;
+    color: var(--color-text-body);
 }
 
 .languages__description-list {
@@ -51,7 +52,8 @@
 .languages__bullet {
     @include m.bullet-mobile;
     flex-shrink: 0;
-    color: v.$color-primary;
+    // color: v.$color-primary;
+    color: var(--color-primary);
 }
 
 .languages__description-text {

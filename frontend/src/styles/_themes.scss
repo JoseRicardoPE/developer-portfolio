@@ -1,0 +1,21 @@
+body[data-theme='light'] {
+  --color-primary: #2563eb;
+
+  --color-text-primary: #111827;
+  --color-text-body: #374151;
+  --color-text-secondary: #6b7280;
+
+  --color-background: #ffffff;
+  --color-background-menu: #f8fafc;
+}
+
+body[data-theme='dark'] {
+  --color-primary: #60a5fa;
+
+  --color-text-primary: #f9fafb;
+  --color-text-body: #d1d5db;
+  --color-text-secondary: #9ca3af;
+
+  --color-background: #111827;
+  --color-background-menu: #1f2937;
+}
