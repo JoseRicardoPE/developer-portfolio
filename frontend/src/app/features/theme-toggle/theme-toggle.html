@@ -1,0 +1,16 @@
+<div class="toggle">
+    <button
+        class="toggle__button"
+        type="button"
+        role="switch"
+        [attr.aria-checked]="isDark()"
+        [attr.aria-label]="isDark() ? 'Activar tema claro' : 'Activar tema oscuro'"
+        (click)="toggleTheme()"
+    >
+        <span class="toggle__track">
+            <span class="toggle__thumb" [class.theme-toggle__thumb--dark]="isDark()">
+                <fa-icon class="toggle__icon" [icon]="isDark() ? faMoon : faSun" />
+            </span>
+        </span>
+    </button>
+</div>

@@ -7,6 +7,7 @@ import { Projects } from './features/projects/projects';
 import { Education } from './features/education/education';
 import { Languages } from './features/languages/languages';
 import { Navigation } from "./features/navigation/navigation";
+import { ThemeToggle } from "./features/theme-toggle/theme-toggle";
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,8 @@ import { Navigation } from "./features/navigation/navigation";
     Projects,
     Education,
     Languages,
-    Navigation
+    Navigation,
+    ThemeToggle
 ],
   templateUrl: './app.html',
   styleUrl: './app.scss',

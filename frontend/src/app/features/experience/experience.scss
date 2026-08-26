@@ -48,7 +48,8 @@
 
 .experience__label {
     @include m.label-primary-mobile;
-    color: v.$color-text-secondary;
+    // color: v.$color-text-secondary;
+    color: var(--color-text-secondary);
 }
 
 .experience__list {

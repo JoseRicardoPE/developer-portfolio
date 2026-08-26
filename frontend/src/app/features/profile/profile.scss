@@ -32,11 +32,13 @@
 }
 
 .profile__role-title {
-    color: v.$color-primary;
+    // color: v.$color-primary;
+    color: var(--color-primary);
 }
 
 .profile__role-subtitle {
-    color: v.$color-text-secondary;
+    // color: v.$color-text-secondary;
+    color: var(--color-text-secondary);
 }
 
 .profile__contact {
@@ -63,7 +65,8 @@
     width: v.$icon-size-mobile;
     height: v.$icon-size-mobile;
     flex: 0 0 v.$icon-size-mobile;
-    color: v.$color-primary;
+    // color: v.$color-primary;
+    color: var(--color-primary);
 }
 
 .profile__social-links {
@@ -83,7 +86,8 @@
     width: v.$icon-size-mobile;
     height: v.$icon-size-mobile;
     flex: 0 0 v.$icon-size-mobile;
-    color: v.$color-primary;
+    // color: v.$color-primary;
+    color: var(--color-primary);
 }
 
 // Desktop

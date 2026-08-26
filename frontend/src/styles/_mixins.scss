@@ -15,7 +15,7 @@
     $size,
     $weight,
     $line-height: v.$line-height-default,
-    $color: v.$color-text-primary
+    $color: var(--color-text-primary)
 ) {
     font-size: $size;
     font-weight: $weight;
@@ -67,7 +67,7 @@
         v.$font-size-xs,
         v.$font-weight-medium,
         v.$line-height-default,
-        v.$color-text-secondary
+        var(--color-text-secondary)
     );
 }
 
@@ -97,7 +97,7 @@
         v.$font-size-sm,
         v.$font-weight-regular,
         v.$line-height-relaxed,
-        v.$color-text-body
+        var(--color-text-body)
     );
 }
 
@@ -107,7 +107,7 @@
         v.$font-size-sm,
         v.$font-weight-medium,
         v.$line-height-default,
-        v.$color-text-secondary
+        var(--color-text-secondary)
     );
 }
 
@@ -117,7 +117,7 @@
         v.$font-size-xs,
         v.$font-weight-medium,
         v.$line-height-default,
-        v.$color-text-secondary
+        var(--color-text-secondary)
     );
 }
 
@@ -130,7 +130,7 @@
         v.$font-size-bullet-mobile,
         v.$font-weight-bold,
         v.$line-height-default,
-        v.$color-primary
+        var(--color-primary)
     );
 }
 
@@ -142,7 +142,7 @@
 @mixin section-divider {
     width: 100%;
     height: f.calculateRem(2px);
-    background-color: v.$color-primary;
+    background-color: var(--color-primary);
 }
 
 // ========================================
