@@ -1,6 +1,7 @@
+import * as projectService from "../services/projectService.js";
+import { localizeProject } from '../utils/localizeProject.js';
 import { isValidObjectId } from "mongoose";
 import {
-  getAllProjects,
   getProjectById,
   createProject,
   updateProject,
@@ -9,8 +10,12 @@ import {
 
 export async function getAllProjectsController(req, res) {
   try {
-    const projects = await getAllProjects();
-    res.status(200).json({ success: true, data: projects });
+    const language = req.query.lang === "en" ? "en" : "es";
+    const projects = await projectService.getAllProjects();
+    const localizedProject = projects.map((project) => {
+      return localizeProject(project, language);
+    });
+    res.status(200).json({ success: true, data: localizedProject });
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -27,14 +32,15 @@ export async function getProjectByIdController(req, res) {
         .status(400)
         .json({ success: false, message: "Invalid project ID" });
     }
-
+    const language = req.query.lang === "en" ? "en" : "es";
     const projectData = await getProjectById(req.params.id);
     if (!projectData) {
       return res
         .status(404)
         .json({ success: false, message: "Project not found" });
     }
-    res.status(200).json({ success: true, data: projectData });
+    const localizedProject = localizeProject(projectData, language);
+    res.status(200).json({ success: true, data: localizedProject });
   } catch (error) {
     res.status(500).json({
       success: false,

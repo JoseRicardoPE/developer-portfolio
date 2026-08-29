@@ -1,11 +1,11 @@
 import Experience from "../models/experience.model.js";
 
 export async function getAllExperiences() {
-  return await Experience.find();
+  return await Experience.find().lean();
 }
 
 export async function getExperienceById(id) {
-  return await Experience.findById(id);
+  return await Experience.findById(id).lean();
 }
 
 export async function createExperience(experienceData) {

@@ -10,9 +10,16 @@ const educationSchema = new mongoose.Schema(
     },
 
     title: {
-      type: String,
-      required: true,
-      trim: true,
+      es: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      en: {
+        type: String,
+        required: true,
+        trim: true,
+      },
     },
 
     institution: {
@@ -37,8 +44,14 @@ const educationSchema = new mongoose.Schema(
     },
 
     contributions: {
-      type: [String],
-      default: [],
+      es: {
+        type: [String],
+        default: [],
+      },
+      en: {
+        type: [String],
+        default: [],
+      },
     },
   },
   {

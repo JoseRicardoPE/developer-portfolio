@@ -1,11 +1,11 @@
 import education from "../models/education.model.js";
 
 export async function getAllEducations() {
-  return await education.find();
+  return await education.find().lean();
 }
 
 export async function getEducationById(id) {
-  return await education.findById(id);
+  return await education.findById(id).lean();
 }
 
 export async function createEducation(educationData) {

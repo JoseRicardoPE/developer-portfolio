@@ -1,3 +1,5 @@
+import * as languageService from "../services/languageService.js";
+import { localizeLanguage } from "../utils/localizeLanguage.js";
 import { isValidObjectId } from "mongoose";
 import {
   getAllLanguages,
@@ -9,8 +11,12 @@ import {
 
 export async function getAllLanguagesController(req, res) {
   try {
-    const languages = await getAllLanguages();
-    res.status(200).json({ success: true, data: languages });
+    const selectedLanguage = req.query.lang === "en" ? "en" : "es";
+    const languages = await languageService.getAllLanguages();
+    const localizedLanguage = languages.map((language) => {
+      return localizeLanguage(language, selectedLanguage);
+    })
+    res.status(200).json({ success: true, data: localizedLanguage });
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -27,14 +33,15 @@ export async function getLanguageByIdController(req, res) {
         .status(400)
         .json({ success: false, message: "Invalid language ID" });
     }
-
+    const selectedLanguage = req.query.lang === "en" ? "en" : "es";
     const languageData = await getLanguageById(req.params.id);
     if (!languageData) {
       return res
         .status(404)
         .json({ success: false, message: "Language not found" });
     }
-    res.status(200).json({ success: true, data: languageData });
+    const localizedLanguage = localizeLanguage(languageData, selectedLanguage);
+    res.status(200).json({ success: true, data: localizedLanguage });
   } catch (error) {
     res.status(500).json({
       success: false,

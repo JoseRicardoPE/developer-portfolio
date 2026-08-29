@@ -1,5 +1,6 @@
+import * as professionalProfileService from "../services/professionalProfileService.js";
+import { localizeProfessionalProfile } from "../utils/localizeProfessionalProfile.js";
 import {
-  getProfessionalProfile,
   createProfessionalProfile,
   updateProfessionalProfile,
   deleteProfessionalProfile,
@@ -7,13 +8,19 @@ import {
 
 export async function getProfessionalProfileController(req, res) {
   try {
-    const professionalProfile = await getProfessionalProfile();
+    const language = req.query.lang === "en" ? "en" : "es";
+    const professionalProfile =
+      await professionalProfileService.getProfessionalProfile();
     if (!professionalProfile) {
       return res
         .status(404)
         .json({ success: false, message: "Professional profile not found" });
     }
-    res.status(200).json({ success: true, data: professionalProfile });
+    const localizedProfessionalProfile = localizeProfessionalProfile(
+      professionalProfile,
+      language,
+    );
+    res.status(200).json({ success: true, data: localizedProfessionalProfile });
   } catch (error) {
     res.status(500).json({
       success: false,

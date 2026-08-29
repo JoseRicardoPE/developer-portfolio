@@ -1,5 +1,5 @@
 <section class="professional-profile" id="professional-profile">
-    <h3 class="professional-profile__title">Perfil Profesional</h3>
+    <h3 class="professional-profile__title">{{ 'professionalProfile.title' | translate}}</h3>
     @if (loading()) {
         <app-loading></app-loading>
     } @else if (error(); as errorMessage) {

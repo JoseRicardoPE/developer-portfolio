@@ -1,0 +1,63 @@
+{
+  "navigation": {
+    "professionalProfile": "Perfil profesional",
+    "technologies": "Tecnologías",
+    "experience": "Experiencia",
+    "projects": "Proyectos",
+    "education": "Educación",
+    "languages": "Idiomas",
+    "openMenu": "Abrir menú de navegación",
+    "closeMenu": "Cerrar menú de navegación",
+    "scrollTop": "Ir al inicio",
+    "navigation": "Navegación del CV"
+  },
+  "experience": {
+    "title": "Experiencia Profesional",
+    "responsibilities": "Responsabilidades",
+    "current": "Actualidad",
+    "empty": "No hay experiencia profesional disponible.",
+    "error": "No fue posible cargar la experiencia profesional"
+  },
+  "education": {
+    "title": "Educación",
+    "empty": "No hay información académica disponible.",
+    "technologies": "Tecnologías",
+    "contributions": "Contribuciones",
+    "error": "No fue posible cargar la formación académica."
+  },
+  "projects": {
+    "title": "Proyectos",
+    "link": "Ver proyecto",
+    "technologies": "Tecnologías",
+    "contributions": "Contribuciones",
+    "repository": "Repositorio",
+    "experience": "Experiencia relacionada",
+    "empty": "No hay proyectos disponibles.",
+    "error": "No fue posible cargar los proyectos."
+  },
+  "technologies": {
+    "title": "Tecnologías",
+    "empty": "No hay tecnologías disponibles.",
+    "error": "No fue posible cargar las tecnologías."
+  },
+  "languages": {
+    "title": "Idiomas",
+    "empty": "No hay idiomas disponibles.",
+    "error": "No fue posible cargar los idiomas"
+  },
+  "professionalProfile": {
+    "title": "Perfil Profesional",
+    "error": "No fue posible cargar el perfil profesional."
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Ocurrió un error."
+  },
+  "languageSelector": {
+    "label": "Seleccionar idioma"
+  },
+  "theme": {
+    "activateLiht": "Activar tema claro",
+    "activateDark": "Activar tema oscuro"
+  }
+}

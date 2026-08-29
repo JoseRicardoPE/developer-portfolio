@@ -1,0 +1,46 @@
+<div class="language-selector">
+    <button
+        class="language-selector__trigger"
+        type="button"
+        aria-haspopup="menu"
+        [attr.aria-expanded]="isOpen()"
+        aria-controls="language-menu"
+        [attr.aria-label]="'languageSelector.label' | translate"
+        (click)="toggleDropdown()"
+    >
+        <fa-icon
+            class="language-selector__icon"
+            [icon]="faGlobeAmericas"
+            aria-hidden="true"
+        >
+        </fa-icon>
+    </button>
+    @if (isOpen()) {
+        <div
+            class="language-selector__menu"
+            id="language-menu"
+            role="menu"
+        >
+            <button
+                class="language-selector__item"
+                type="button"
+                role="menuitemradio"
+                [attr.aria-checked]="language() === 'es'"
+                [class.language-selector__item--active]="language() === 'es'"
+                (click)="selectLanguage('es')"
+            >
+                Español
+            </button>
+            <button
+                class="language-selector__item"
+                type="button"
+                role="menuitemradio"
+                [attr.aria-checked]="language() === 'en'"
+                [class.language-selector__item--active]="language() === 'en'"
+                (click)="selectLanguage('en')"
+            >
+                English
+            </button>
+        </div>
+    }
+</div>

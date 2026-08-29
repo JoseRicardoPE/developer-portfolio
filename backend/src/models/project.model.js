@@ -3,14 +3,27 @@ import mongoose from "mongoose";
 const projectSchema = new mongoose.Schema(
   {
     name: {
-      type: String,
-      required: true,
-      trim: true,
+      es: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      en: {
+        type: String,
+        required: true,
+        trim: true,
+      },
     },
 
     description: {
-      type: String,
-      trim: true,
+      es: {
+        type: String,
+        trim: true,
+      },
+      en: {
+        type: String,
+        trim: true,
+      },
     },
 
     url: {
@@ -24,8 +37,14 @@ const projectSchema = new mongoose.Schema(
     },
 
     contributions: {
-      type: [String],
-      required: true,
+      es: {
+        type: [String],
+        required: true,
+      },
+      en: {
+        type: [String],
+        required: true,
+      },
     },
 
     repository: {

@@ -1,11 +1,15 @@
 import { Component, inject, signal } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { ThemeService } from '../../core/services/theme.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-theme-toggle',
-  imports: [FontAwesomeModule],
+  imports: [
+    FaIconComponent,
+    TranslatePipe
+  ],
   templateUrl: './theme-toggle.html',
   styleUrl: './theme-toggle.scss',
 })

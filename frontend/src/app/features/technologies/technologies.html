@@ -1,5 +1,5 @@
 <section class="technologies" id="technologies">
-    <h3 class="technologies__title">Tecnologías</h3>
+    <h3 class="technologies__title">{{ 'technologies.title' | translate}}</h3>
     @if (loading()) {
         <app-loading></app-loading>
     } @else if (error(); as errorMessage) {
@@ -23,7 +23,7 @@
                     </ul>
                 </div>
             } @empty {
-                <span class="technologies__empty">No hay tecnologías disponibles.</span>
+                <span class="technologies__empty">{{ 'technologies.empty' | translate}}</span>
             }
         </div>
     }

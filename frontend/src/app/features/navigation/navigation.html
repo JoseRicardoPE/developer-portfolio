@@ -5,17 +5,29 @@
             type="button"
             [attr.aria-expanded]="isOpen()"
             aria-controls="navigation-menu"
-            [attr.aria-label]="isOpen() ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'"
+            [attr.aria-label]="(isOpen() ? 'navigation.closeMenu' : 'navigation.openMenu') | translate"
             (click)="toggleMenu()"
         >
-            <fa-icon class="navigation__icon" [icon]="isOpen() ? faXmark : faBars"></fa-icon>
+            <fa-icon
+                class="navigation__icon"
+                [icon]="isOpen() ? faXmark : faBars"
+                aria-hidden="true"
+            ></fa-icon>
         </button>
     </div>
     @if (isOpen()) {
-        <nav class="navigation__menu" id="navigation-menu" aria-label="Navegación del CV">
+        <nav
+            class="navigation__menu"
+            id="navigation-menu"
+            [attr.aria-label]="'navigation.navigation' | translate"
+        >
             @for (item of menuItems; track item.fragment) {
-                <a class="navigation__item" [href]="'#' + item.fragment" (click)="closeMenu()">
-                    {{ item.label }}
+                <a
+                    class="navigation__item"
+                    [href]="'#' + item.fragment"
+                    (click)="closeMenu()"
+                >
+                    {{ item.label | translate }}
                 </a>
             }
         </nav>
@@ -24,10 +36,13 @@
         <button
             class="navigation__scroll-top"
             type="button"
-            aria-label="Ir al inicio"
+            [attr.aria-label]="'navigation.scrollTop' | translate"
             (click)="scrollToTop()"
         >
-            <fa-icon [icon]="faArrowUp"></fa-icon>
+            <fa-icon
+                [icon]="faArrowUp"
+                aria-hidden="true"
+            ></fa-icon>
         </button>
     }
 </section>

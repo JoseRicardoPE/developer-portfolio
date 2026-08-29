@@ -3,28 +3,40 @@ import mongoose from "mongoose";
 const languageSchema = new mongoose.Schema(
   {
     language: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-
-    code: {
-      type: String,
-      required: true,
-      enum: ['es', 'en'],
-      trim: true
+      es: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      en: {
+        type: String,
+        required: true,
+        trim: true,
+      },
     },
 
     level: {
-      type: String,
-      required: true,
-      trim: true,
+      es: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      en: {
+        type: String,
+        required: true,
+        trim: true,
+      },
     },
 
     description: {
-      type: [String],
-      trim: true,
-      default: "",
+      es: {
+        type: [String],
+        default: [],
+      },
+      en: {
+        type: [String],
+        default: [],
+      },
     },
   },
   {

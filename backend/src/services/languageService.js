@@ -1,11 +1,11 @@
 import language from "../models/language.model.js";
 
 export async function getAllLanguages() {
-  return await language.find();
+  return await language.find().lean();
 }
 
 export async function getLanguageById(id) {
-  return await language.findById(id);
+  return await language.findById(id).lean();
 }
 
 export async function createLanguage(languageData) {

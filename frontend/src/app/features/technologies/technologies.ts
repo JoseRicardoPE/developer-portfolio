@@ -1,32 +1,48 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { TechnologyService } from '../../core/services/technology.service';
 import { Technology } from '../../core/models/technology.model';
-import { Loading } from "../../shared/components/loading/loading";
-import { ErrorMessage } from "../../shared/components/error-message/error-message";
+import { Loading } from '../../shared/components/loading/loading';
+import { ErrorMessage } from '../../shared/components/error-message/error-message';
+import { TranslatePipe } from '@ngx-translate/core';
+import { AppLanguage } from '../../core/models/app-language.model';
+import { AppLanguageService } from '../../core/services/app-language.service';
 
 @Component({
   selector: 'app-technologies',
-  imports: [Loading, ErrorMessage],
+  imports: [
+    Loading,
+    ErrorMessage,
+    TranslatePipe
+  ],
   templateUrl: './technologies.html',
   styleUrl: './technologies.scss',
 })
-export class Technologies implements OnInit{
+export class Technologies {
+  private readonly appLanguageService = inject(AppLanguageService);
   private readonly technologyService = inject(TechnologyService);
-
   readonly technologies = signal<Technology[]>([]);
   readonly loading = signal(true);
   readonly error = signal<string | null>(null);
 
-  ngOnInit(): void {
-      this.technologyService.getAllTechnologies().subscribe({
-        next: (response) => {
-          this.technologies.set(response.data);
-          this.loading.set(false);
-        },
-        error: (error) => {
-          this.error.set('No fue posible cargar las tecnologías.');
-          this.loading.set(false);
-        }
-      })
+  constructor() {
+    effect(() => {
+      const language = this.appLanguageService.language();
+      this.loadTechnologies(language);
+    });
+  }
+
+  private loadTechnologies(language: AppLanguage): void {
+    this.loading.set(true);
+    this.error.set(null);
+    this.technologyService.getAllTechnologies(language).subscribe({
+      next: (response) => {
+        this.technologies.set(response.data);
+        this.loading.set(false);
+      },
+      error: () => {
+        this.error.set('technologies.error');
+        this.loading.set(false);
+      },
+    });
   }
 }
