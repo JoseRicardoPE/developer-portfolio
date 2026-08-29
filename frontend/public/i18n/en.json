@@ -1,0 +1,63 @@
+{
+  "navigation": {
+    "professionalProfile": "Professional profile",
+    "technologies": "Technologies",
+    "experience": "Experience",
+    "projects": "Projects",
+    "education": "Education",
+    "languages": "Languages",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close navigation menu",
+    "scrollTop": "Go to top",
+    "navigation": "CV Navigation"
+  },
+  "experience": {
+    "title": "Professional Experience",
+    "responsibilities": "Responsibilities",
+    "current": "Present",
+    "empty": "No professional experience available.",
+    "error": "Professional experience could not be loaded."
+  },
+  "education": {
+    "title": "Education",
+    "empty": "No education information available.",
+    "technologies": "Technologies",
+    "contributions": "Contributions",
+    "error": "Unable to load the academic background."
+  },
+  "projects": {
+    "title": "Projects",
+    "link": "View project",
+    "technologies": "Technologies",
+    "contributions": "Contributions",
+    "repository": "Repository",
+    "experience": "Related experience",
+    "empty": "No projects available.",
+    "error": "Unable to load the projects."
+  },
+  "technologies": {
+    "title": "Technologies",
+    "empty": "No technologies available.",
+    "error": "Unable to load the technologies."
+  },
+  "languages": {
+    "title": "Languages",
+    "empty": "No languages available.",
+    "error": "Unable to load the languages."
+  },
+  "professionalProfile": {
+    "title": "Professional Profile",
+    "error": "Unable to load the professional profile."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred."
+  },
+  "languageSelector": {
+    "label": "Select language"
+  },
+  "theme": {
+    "activateLiht": "Enable Light Theme",
+    "activateDark": "Enable Dark Theme"
+  }
+}

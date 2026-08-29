@@ -1,6 +1,7 @@
+import * as experienceService from "../services/experienceService.js";
+import { localizeExperience } from "../utils/localizeExperience.js";
 import { isValidObjectId } from "mongoose";
 import {
-  getAllExperiences,
   getExperienceById,
   createExperience,
   updateExperience,
@@ -9,8 +10,12 @@ import {
 
 export async function getAllExperiencesController(req, res) {
   try {
-    const experiences = await getAllExperiences();
-    res.status(200).json({ success: true, data: experiences });
+    const language = req.query.lang === "en" ? "en" : "es";
+    const experiences = await experienceService.getAllExperiences();
+    const localizedExperiences = experiences.map((experience) => {
+      return localizeExperience(experience, language);
+    });
+    res.status(200).json({ success: true, data: localizedExperiences });
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -27,14 +32,15 @@ export async function getExperienceByIdController(req, res) {
         .status(400)
         .json({ success: false, message: "Invalid experience ID" });
     }
-
+    const language = req.query.lang === "en" ? "en" : "es";
     const experienceData = await getExperienceById(req.params.id);
     if (!experienceData) {
       return res
         .status(404)
         .json({ success: false, message: "Experience not found" });
     }
-    res.status(200).json({ success: true, data: experienceData });
+    const localizedExperience = localizeExperience(experienceData, language);
+    res.status(200).json({ success: true, data: localizedExperience });
   } catch (error) {
     res.status(500).json({
       success: false,

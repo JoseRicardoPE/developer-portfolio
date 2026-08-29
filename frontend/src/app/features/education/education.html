@@ -1,5 +1,5 @@
 <section class="education" id="education">
-    <h3 class="education__title">Formación</h3>
+    <h3 class="education__title">{{ 'education.title' | translate}}</h3>
     @if (loading()) {
         <app-loading></app-loading>
     } @else if (error(); as errorMessage) {
@@ -16,17 +16,17 @@
                             {{ education.institution }}
                         </span>
                         <span class="education__date">
-                            {{ education.startDate | date:'MMM yyyy' : undefined : 'es-CO' }}
+                            {{ education.startDate | date:'MMM yyyy' : 'UTC' : locale() }}
 
                             @if (education.endDate) {
-                                - {{ education.endDate | date:'MMM yyyy' : undefined : 'es-CO' }}
+                                - {{ education.endDate | date:'MMM yyyy' : 'UTC' : locale() }}
                             }
                         </span>
                     </div>
 
                     @if (education.technologies.length > 0) {
                         <div class="education__technologies">
-                            <span class="education__label">Tecnologías</span>
+                            <span class="education__label">{{ 'education.technologies' | translate}}</span>
                             <ul class="education__technology-list">
                                 @for (technology of education.technologies; track $index) {
                                     <li class="education__technology-item">
@@ -47,7 +47,7 @@
 
                     @if (education.contributions.length > 0) {
                         <div class="education__contributions">
-                            <span class="education__label">Contribuciones</span>
+                            <span class="education__label">{{ 'education.contributions' | translate}}</span>
                             <ul class="education__contribution-list">
                                 @for (contribution of education.contributions; track $index) {
                                     <li class="education__contribution-item">
@@ -64,7 +64,7 @@
                     }
                 </article>
             } @empty {
-                <span class="education__empty"> No hay información educativa disponible. </span>
+                <span class="education__empty">{{ 'education.empty' | translate}}</span>
             }
         </div>
     }

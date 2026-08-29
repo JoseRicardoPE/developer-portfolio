@@ -1,11 +1,11 @@
 import project from "../models/project.model.js";
 
 export async function getAllProjects() {
-  return await project.find();
+  return await project.find().lean();
 }
 
 export async function getProjectById(id) {
-  return await project.findById(id);
+  return await project.findById(id).lean();
 }
 
 export async function createProject(projectData) {

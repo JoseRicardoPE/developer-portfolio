@@ -3,9 +3,16 @@ import mongoose from "mongoose";
 const experienceSchema = new mongoose.Schema(
   {
     position: {
-      type: String,
-      required: true,
-      trim: true,
+      es: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      en: {
+        type: String,
+        required: true,
+        trim: true,
+      },
     },
 
     company: {
@@ -31,8 +38,14 @@ const experienceSchema = new mongoose.Schema(
     },
 
     responsibilities: {
-      type: [String],
-      required: true,
+      es: {
+        type: [String],
+        required: true,
+      },
+      en: {
+        type: [String],
+        required: true,
+      },
     },
   },
   {

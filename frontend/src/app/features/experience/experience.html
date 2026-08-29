@@ -1,5 +1,5 @@
 <section class="experience" id="experience">
-    <h3 class="experience__title">Experiencia Profesional</h3>
+    <h3 class="experience__title">{{ 'experience.title' | translate}}</h3>
     @if (loading()) {
         <app-loading></app-loading>
     } @else if (error(); as errorMessage) {
@@ -12,16 +12,16 @@
                         <label class="experience__position">{{ experience.position }}</label>
                         <span class="experience__company">{{ experience.company }}</span>
                         <span class="experience__date">
-                            {{ experience.startDate | date:'MMM yyyy' : undefined : 'es-CO' }}
+                            {{ experience.startDate | date:'MMM yyyy' : 'UTC' : locale() }}
                             @if (experience.current) {
-                                - Actualidad
+                                - {{ 'experience.current' | translate}}
                             } @else {
-                                - {{ experience.endDate | date:'MMM yyyy' : undefined : 'es-CO' }}
+                                - {{ experience.endDate | date:'MMM yyyy' : 'UTC' : locale() }}
                             }
                         </span>
                     </div>
                     <div class="experience__responsibilities">
-                        <label class="experience__label">Responsabilidades</label>
+                        <label class="experience__label">{{ 'experience.responsibilities' | translate}}</label>
                         <ul class="experience__list">
                             @for (responsibility of experience.responsibilities; track $index) {
                                 <li class="experience__responsibility">
@@ -38,7 +38,7 @@
                     </div>
                 </article>
             } @empty {
-                <span class="experience__empty">No hay experiencia profesional disponible.</span>
+                <span class="experience__empty">{{ 'experience.empty' | translate}}</span>
             }
         </div>
     }

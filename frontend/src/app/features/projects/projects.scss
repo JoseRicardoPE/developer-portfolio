@@ -39,7 +39,6 @@
 
 .projects__link {
     @include m.body-default-mobile;
-    // color: v.$color-primary;
     color: var(--color-primary);
 }
 
@@ -65,7 +64,6 @@
     flex-direction: column;
     gap: v.$internal-gap;
     .projects__label {
-        // color: v.$color-text-secondary;
         color: var(--color-text-secondary);
     }
 }
@@ -100,7 +98,6 @@
 .projects__repository-link {
     @include m.label-medium-mobile;
     width: fit-content;
-    // color: v.$color-primary;
     color: var(--color-primary);
 }
 

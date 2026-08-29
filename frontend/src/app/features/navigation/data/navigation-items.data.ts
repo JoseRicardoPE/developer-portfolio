@@ -2,27 +2,27 @@ import { NavigationItem } from '../model/navigation-item.model';
 
 export const NAVIGATION_ITEMS: readonly NavigationItem[] = [
   {
-    label: 'Perfil profesional',
+    label: 'navigation.professionalProfile',
     fragment: 'professional-profile',
   },
   {
-    label: 'Tecnologías',
+    label: 'navigation.technologies',
     fragment: 'technologies',
   },
   {
-    label: 'Experiencia',
+    label: 'navigation.experience',
     fragment: 'experience',
   },
   {
-    label: 'Proyectos',
+    label: 'navigation.projects',
     fragment: 'projects',
   },
   {
-    label: 'Educación',
+    label: 'navigation.education',
     fragment: 'education',
   },
   {
-    label: 'Idiomas',
+    label: 'navigation.languages',
     fragment: 'languages',
   },
 ];

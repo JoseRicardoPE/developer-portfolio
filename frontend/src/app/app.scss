@@ -20,7 +20,7 @@
     @include m.section-divider;
 }
 
-// RESPONSIVE
+// Desktop
 @include m.desktop {
     .portfolio {
         padding: v.$desktop-padding-y v.$desktop-padding-x;

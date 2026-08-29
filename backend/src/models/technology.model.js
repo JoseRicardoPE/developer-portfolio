@@ -3,9 +3,16 @@ import mongoose from "mongoose";
 const technologySchema = new mongoose.Schema(
   {
     category: {
-      type: String,
-      required: true,
-      trim: true,
+      es: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      en: {
+        type: String,
+        required: true,
+        trim: true
+      },
     },
 
     items: {

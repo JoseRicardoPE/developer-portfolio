@@ -17,21 +17,33 @@
         <div class="profile__contact">
             <div class="profile__contact-info">
                 <div class="profile__contact-item">
-                    <fa-icon class="profile__contact-icon" [icon]="faLocationDot"></fa-icon>
+                    <fa-icon
+                        class="profile__contact-icon"
+                        [icon]="faLocationDot"
+                        aria-hidden="true"
+                    ></fa-icon>
                     <span class="profile__contact-text">
                         {{ profileData.location }}
                     </span>
                 </div>
 
                 <a class="profile__contact-item" [href]="'mailto:' + profileData.email">
-                    <fa-icon class="profile__contact-icon" [icon]="faEnvelope"></fa-icon>
+                    <fa-icon
+                        class="profile__contact-icon"
+                        [icon]="faEnvelope"
+                        aria-hidden="true"
+                    ></fa-icon>
                     <span class="profile__contact-text">
                         {{ profileData.email }}
                     </span>
                 </a>
 
                 <a class="profile__contact-item" [href]="'tel:' + profileData.phone">
-                    <fa-icon class="profile__contact-icon" [icon]="faPhone"></fa-icon>
+                    <fa-icon
+                        class="profile__contact-icon"
+                        [icon]="faPhone"
+                        aria-hidden="true"
+                    ></fa-icon>
                     <span class="profile__contact-text">
                         {{ profileData.phone }}
                     </span>
@@ -45,7 +57,11 @@
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <fa-icon class="profile__social-icon" [icon]="faLinkedin"></fa-icon>
+                    <fa-icon
+                        class="profile__social-icon"
+                        [icon]="faLinkedin"
+                        aria-hidden="true"
+                    ></fa-icon>
                     <span class="profile__social-text">LinkedIn</span>
                 </a>
 
@@ -55,7 +71,11 @@
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <fa-icon class="profile__social-icon" [icon]="faGithub"></fa-icon>
+                    <fa-icon
+                        class="profile__social-icon"
+                        [icon]="faGithub"
+                        aria-hidden="true"
+                    ></fa-icon>
                     <span class="profile__social-text">GitHub</span>
                 </a>
             </div>

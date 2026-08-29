@@ -1,7 +1,7 @@
 import ProfessionalProfile from "../models/professionalProfile.model.js";
 
 export async function getProfessionalProfile() {
-  return await ProfessionalProfile.findOne();
+  return await ProfessionalProfile.findOne().lean();
 }
 
 export async function createProfessionalProfile(profileData) {

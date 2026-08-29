@@ -1,17 +1,21 @@
 import { Component, signal, ElementRef, HostListener, inject } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faBars, faXmark, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { NAVIGATION_ITEMS } from './data/navigation-items.data';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-navigation',
-  imports: [FontAwesomeModule],
+  imports: [
+    FaIconComponent,
+    TranslatePipe,
+],
   templateUrl: './navigation.html',
   styleUrl: './navigation.scss',
 })
 export class Navigation {
-  private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   
+  private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   protected readonly faBars = faBars;
   protected readonly faXmark = faXmark;
   protected readonly faArrowUp = faArrowUp;

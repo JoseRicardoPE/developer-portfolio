@@ -1,5 +1,5 @@
 <section class="projects" id="projects">
-    <h3 class="projects__title">Proyectos Destacados</h3>
+    <h3 class="projects__title">{{ 'projects.title' | translate}}</h3>
 
     @if (loading()) {
         <app-loading></app-loading>
@@ -27,13 +27,13 @@
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                Ver proyecto
+                                {{ 'projects.link' | translate}}
                             </a>
                         }
                     </div>
 
                     <div class="projects__technologies">
-                        <span class="projects__label">Tecnologías</span>
+                        <span class="projects__label">{{ 'projects.technologies' | translate}}</span>
 
                         <ul class="projects__items">
                             @for (technology of project.technologies; track $index) {
@@ -50,13 +50,12 @@
                     </div>
 
                     <div class="projects__contributions">
-                        <span class="projects__label">Contribuciones</span>
+                        <span class="projects__label">{{ 'projects.contributions' | translate}}</span>
 
                         <ul class="projects__contribution-list">
                             @for (contribution of project.contributions; track $index) {
                                 <li class="projects__contribution-item">
                                     <span class="projects__bullet" aria-hidden="true"> • </span>
-
                                     <span class="projects__contribution-text">
                                         {{ contribution }}
                                     </span>
@@ -74,14 +73,14 @@
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    Repositorio
+                                    {{ 'projects.repository' | translate}}
                                 </a>
                             }
 
                             @if (project.relatedExperience) {
                                 <p class="projects__related-experience">
                                     <span class="projects__related-experience-label">
-                                        Experiencia relacionada:
+                                        {{ 'projects.experience' | translate}}:
                                     </span>
 									<span class="projects__related-experience-value">
 										{{ project.relatedExperience }}
@@ -92,7 +91,7 @@
                     }
                 </article>
             } @empty {
-                <p class="projects__empty">No hay proyectos disponibles.</p>
+                <p class="projects__empty">{{ 'projects.empty' | translate}}</p>
             }
         </div>
     }

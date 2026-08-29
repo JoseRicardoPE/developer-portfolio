@@ -3,8 +3,14 @@ import mongoose from "mongoose";
 const professionalProfileSchema = new mongoose.Schema(
   {
     paragraphs: {
-      type: [String],
-      required: true,
+      es: {
+        type: [String],
+        required: true,
+      },
+      en: {
+        type: [String],
+        required: true,
+      },
     },
   },
   {

@@ -32,7 +32,6 @@
     @include m.body-default-mobile;
     display: flex;
     flex-wrap: wrap;
-    // color: v.$color-text-secondary;
     color: var(--color-text-secondary);
     gap: v.$spacing-xxxs;
 }

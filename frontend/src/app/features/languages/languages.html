@@ -1,5 +1,5 @@
 <section class="languages" id="languages">
-    <h3 class="languages__title">Idiomas</h3>
+    <h3 class="languages__title">{{ 'languages.title' | translate}}</h3>
 
     @if (loading()) {
         <app-loading></app-loading>
@@ -34,7 +34,7 @@
                     }
                 </article>
             } @empty {
-                <span class="languages__empty"> No hay idiomas disponibles. </span>
+                <span class="languages__empty">{{ 'languages.empty' | translate}}</span>
             }
         </div>
     }

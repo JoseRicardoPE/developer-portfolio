@@ -32,12 +32,10 @@
 }
 
 .profile__role-title {
-    // color: v.$color-primary;
     color: var(--color-primary);
 }
 
 .profile__role-subtitle {
-    // color: v.$color-text-secondary;
     color: var(--color-text-secondary);
 }
 
@@ -65,7 +63,6 @@
     width: v.$icon-size-mobile;
     height: v.$icon-size-mobile;
     flex: 0 0 v.$icon-size-mobile;
-    // color: v.$color-primary;
     color: var(--color-primary);
 }
 
@@ -86,7 +83,6 @@
     width: v.$icon-size-mobile;
     height: v.$icon-size-mobile;
     flex: 0 0 v.$icon-size-mobile;
-    // color: v.$color-primary;
     color: var(--color-primary);
 }
 

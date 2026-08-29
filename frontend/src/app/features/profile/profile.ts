@@ -3,13 +3,17 @@ import { ProfileService } from '../../core/services/profile.service';
 import { Profile as ProfileModel } from '../../core/models/profile.model';
 import { Loading } from '../../shared/components/loading/loading';
 import { ErrorMessage } from '../../shared/components/error-message/error-message';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faEnvelope, faGlobe, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-profile',
-  imports: [Loading, ErrorMessage, FontAwesomeModule],
+  imports: [
+    Loading,
+    ErrorMessage,
+    FaIconComponent
+  ],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
 })
@@ -20,9 +24,7 @@ export class Profile implements OnInit {
   protected readonly faLinkedin = faLinkedin;
   protected readonly faGithub = faGithub;
   protected readonly faGlobe = faGlobe;
-
   private readonly profileService = inject(ProfileService);
-
   readonly profile = signal<ProfileModel | null>(null);
   readonly loading = signal(true);
   readonly error = signal<string | null>(null);

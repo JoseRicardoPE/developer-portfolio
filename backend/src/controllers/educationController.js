@@ -1,6 +1,7 @@
+import * as educationService from "../services/educationService.js";
+import { localizeEducation } from "../utils/localizeEducation.js";
 import { isValidObjectId } from "mongoose";
 import {
-  getAllEducations,
   getEducationById,
   createEducation,
   updateEducation,
@@ -9,8 +10,12 @@ import {
 
 export async function getAllEducationsController(req, res) {
   try {
-    const educations = await getAllEducations();
-    res.status(200).json({ success: true, data: educations });
+    const language = req.query.lang === "en" ? "en" : "es";
+    const educations = await educationService.getAllEducations();
+    const localizedEducation = educations.map((education) => {
+      return localizeEducation(education, language);
+    })
+    res.status(200).json({ success: true, data: localizedEducation });
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -27,14 +32,15 @@ export async function getEducationByIdController(req, res) {
         .status(400)
         .json({ success: false, message: "Invalid education ID" });
     }
-
+    const language = req.query.lang === "en" ? "en" : "es";
     const educatiionData = await getEducationById(req.params.id);
     if (!educatiionData) {
       return res
         .status(404)
         .json({ success: false, message: "Education not found" });
     }
-    res.status(200).json({ success: true, data: educatiionData });
+    const localizedEducation = localizeEducation(educatiionData, language)
+    res.status(200).json({ success: true, data: localizedEducation });
   } catch (error) {
     res.status(500).json({
       success: false,
