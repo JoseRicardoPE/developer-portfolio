@@ -79,6 +79,11 @@ Actualmente se han definido los siguientes modelos:
 ## API REST
 
 La API expone operaciones CRUD para los recursos principales del portfolio.
+Los endpoints de lectura de contenido internacionalizable aceptan opcionalmente el query parameter `lang`, actualmente con soporte para `es` y `en`.
+
+Ejemplo:
+
+`GET /api/experiences?lang=en`
 
 ### Recursos únicos
 
@@ -142,9 +147,9 @@ La aplicación está organizada por responsabilidades, separando los elementos g
 
 Actualmente incluye:
 
-- `models/`: interfaces y modelos utilizados para tipar los datos recibidos desde la API.
+- `models/`: interfaces y modelos utilizados para tipar los datos de la aplicación, incluyendo los recibidos desde la API y modelos de estado global.
 - `enums/`: enumeraciones compartidas por la aplicación.
-- `services/`: servicios responsables de la comunicación con la API REST.
+- `services/`: servicios responsables de la comunicación con la API REST y de funcionalidades globales de la aplicación, como la gestión del tema visual y del idioma de la aplicación.
 - `interceptors/`: interceptores HTTP globales.
 - `constants/`: constantes compartidas, incluyendo la configuración de endpoints de la API.
 
@@ -172,8 +177,36 @@ Actualmente se encuentran implementadas:
 - `projects`
 - `education`
 - `languages`
+- `navigation`
+- `theme-toggle`
+- `language-selector`
 
 Cada feature mantiene sus responsabilidades de presentación encapsuladas en sus archivos TypeScript, HTML y SCSS.
+
+### Navigation
+
+La navegación principal del CV se encuentra encapsulada en la feature:
+
+`src/app/features/navigation/`
+
+La navegación se realiza entre las diferentes secciones de la SPA mediante identificadores de sección, sin requerir cambios de ruta.
+
+Los elementos de navegación se encuentran separados de la lógica del componente mediante:
+
+- `data/navigation-items.data.ts`: configuración de los elementos disponibles en el menú.
+- `model/navigation-item.model.ts`: contrato utilizado para tipar cada elemento de navegación.
+
+El componente mantiene mediante Signals los estados de interfaz necesarios para controlar la apertura y cierre del menú y la visibilidad del botón de retorno al inicio.
+
+La navegación incorpora:
+
+- Navegación entre secciones del CV.
+- Desplazamiento suave hacia las secciones.
+- Menú adaptable a Mobile y Desktop.
+- Cierre del menú al seleccionar una sección o interactuar fuera de él.
+- Botón `scroll-to-top` para regresar al inicio del documento.
+
+La configuración de los elementos del menú permanece separada de la lógica y presentación del componente, facilitando su mantenimiento y extensión.
 
 ### Design System
 
@@ -185,13 +218,118 @@ Los estilos globales se encuentran en:
 
 La estructura está compuesta por:
 
-- `_vars.scss`: Design Tokens globales como colores, tipografía, tamaños, spacing, dimensiones de iconos, layout y breakpoints.
+- `_vars.scss`: Design Tokens globales estáticos como tipografía, tamaños, spacing, dimensiones de iconos, layout y breakpoints.
 - `_functions.scss`: funciones SCSS reutilizables.
 - `_mixins.scss`: mixins reutilizables para tipografía, layout y responsive.
 - `_reset.scss`: normalización y reset de estilos del navegador.
 - `_base.scss`: estilos base globales de la aplicación.
+- `_themes.scss`: definición de los tokens visuales dinámicos utilizados por los temas Light y Dark.
 
 `styles.scss` actúa como punto de entrada de los estilos globales.
+
+Los valores estructurales del Design System permanecen definidos mediante variables SCSS, mientras que los valores que pueden cambiar dinámicamente según el tema visual se representan mediante CSS Custom Properties.
+
+### Theme System
+
+La aplicación soporta los temas visuales `light` y `dark`.
+
+La gestión del tema se encuentra centralizada en:
+
+`src/app/core/services/theme.service.ts`
+
+El tipo utilizado para representar los temas disponibles se encuentra definido en:
+
+`src/app/core/models/theme.model.ts`
+
+La interfaz visual para cambiar manualmente el tema se encuentra encapsulada en:
+
+`src/app/features/theme-toggle/`
+
+El estado del tema se gestiona mediante Angular Signals y se aplica globalmente sobre el documento mediante el atributo:
+
+`data-theme`
+
+Los estilos específicos de cada tema se encuentran centralizados en:
+
+`src/styles/_themes.scss`
+
+Los colores que cambian entre temas utilizan CSS Custom Properties, permitiendo actualizar la apariencia de la aplicación sin duplicar los estilos de cada componente.
+
+La selección inicial del tema sigue el siguiente orden de prioridad:
+
+1. Preferencia almacenada previamente por el usuario en `localStorage`.
+2. Preferencia de color configurada en el sistema operativo mediante `prefers-color-scheme`.
+
+Cuando el usuario selecciona manualmente un tema, la preferencia se almacena en `localStorage` para conservarla entre sesiones.
+
+Si no existe una preferencia manual almacenada, la aplicación escucha los cambios de `prefers-color-scheme` mediante `matchMedia` y actualiza el tema en tiempo real cuando cambia la configuración del sistema operativo.
+
+### Language / Internationalization System
+
+La aplicación soporta actualmente los idiomas `es` y `en`.
+
+La gestión del idioma se encuentra centralizada en:
+
+`src/app/core/services/app-language.service.ts`
+
+El tipo utilizado para representar los idiomas disponibles se encuentra definido en:
+
+`src/app/core/models/app-language.model.ts`
+
+La configuración de locales se encuentra centralizada en:
+
+`src/app/core/constants/app-locale.constants.ts`
+
+La interfaz visual para cambiar el idioma se encuentra encapsulada en:
+
+`src/app/features/language-selector/`
+
+Los textos estáticos de la interfaz se gestionan mediante `@ngx-translate/core` y archivos de traducción ubicados en:
+
+`public/i18n/`
+
+Actualmente se utilizan:
+
+- `es.json`
+- `en.json`
+
+El idioma seleccionado se almacena en `localStorage` mediante la clave `app-language`.
+
+Cuando no existe una preferencia almacenada, la aplicación utiliza Español como idioma predeterminado.
+
+El cambio de idioma se realiza sin recargar la aplicación.
+
+### Internationalization of API Content
+
+El contenido dinámico proveniente de la API soporta localización mediante el query parameter:
+
+`?lang=es|en`
+
+Los campos que requieren traducción se almacenan en MongoDB mediante una estructura localizada:
+
+{
+  es: "...",
+  en: "..."
+}
+
+Para arrays traducibles se utiliza la misma estrategia:
+
+{
+  es: ["..."],
+  en: ["..."]
+}
+
+La transformación de los documentos se realiza en el backend antes de enviar la respuesta al frontend.
+
+La lógica común de selección del contenido localizado se encuentra centralizada en:
+
+`src/utils/localizeField.js`
+
+Cada recurso dispone de un helper de localización específico cuando es necesario.
+
+El backend utiliza Español como idioma predeterminado cuando el parámetro `lang` no existe o contiene un idioma no soportado.
+
+Los servicios Angular envían el idioma activo mediante el parámetro `lang`, manteniendo los modelos del frontend desacoplados de la estructura bilingüe almacenada en MongoDB.
 
 ### Mobile First
 
@@ -286,7 +424,14 @@ developer-portfolio/
 │   │   │   ├── languageService.js
 │   │   │   └── technologyService.js
 │   │   ├── utils/
-│   │   │   └── validateObjectId.js
+│   │   │   ├── validateObjectId.js
+│   │   │   ├── localizeField.js
+│   │   │   ├── localizeEducation.js
+│   │   │   ├── localizeExperience.js
+│   │   │   ├── localizeLanguage.js
+│   │   │   ├── localizeProfessionalProfile.js
+│   │   │   ├── localizeProject.js
+│   │   │   └── localizeTechnology.js
 │   │   ├── app.js
 │   │   └── server.js
 │   │
@@ -296,7 +441,10 @@ developer-portfolio/
 │
 ├── frontend/
 │   ├── public/
-│   │   └── favicon.ico
+│   │   ├── favicon.ico
+│   │   └── i18n/
+│   │       ├── es.json
+│   │       └── en.json
 │   │
 │   ├── src/
 │   │   ├── app/
@@ -309,11 +457,13 @@ developer-portfolio/
 │   │   │   │   │   ├── project.model.ts
 │   │   │   │   │   ├── education.model.ts
 │   │   │   │   │   ├── language.model.ts
-│   │   │   │   │   └── api-response.model.ts
+│   │   │   │   │   ├── api-response.model.ts
+│   │   │   │   │   ├── theme.model.ts
+│   │   │   │   │   └── app-language.model.ts
 │   │   │   │   │
 │   │   │   │   ├── enums/
-│   │   │   │   │   ├── education-type.enum.ts
-│   │   │   │   │   └── language-type.enum.ts
+│   │   │   │   │   └── education-type.enum.ts
+│   │   │   │   │
 │   │   │   │   ├── services/
 │   │   │   │   │   ├── profile.service.ts
 │   │   │   │   │   ├── professional-profile.service.ts
@@ -321,13 +471,16 @@ developer-portfolio/
 │   │   │   │   │   ├── experience.service.ts
 │   │   │   │   │   ├── project.service.ts
 │   │   │   │   │   ├── education.service.ts
-│   │   │   │   │   └── language.service.ts
+│   │   │   │   │   ├── language.service.ts
+│   │   │   │   │   ├── theme.service.ts
+│   │   │   │   │   └── app-language.service.ts
 │   │   │   │   │
 │   │   │   │   ├── interceptors/
 │   │   │   │   │   └── error.interceptor.ts
 │   │   │   │   │
 │   │   │   │   └── constants/
-│   │   │   │       └── api.constants.ts
+│   │   │   │       ├── api.constants.ts
+│   │   │   │       └── app-locale.constants.ts
 │   │   │   │
 │   │   │   ├── shared/
 │   │   │   │   ├── components/
@@ -376,10 +529,31 @@ developer-portfolio/
 │   │   │   │   │   ├── education.html
 │   │   │   │   │   └── education.scss
 │   │   │   │   │
-│   │   │   │   └── languages/
-│   │   │   │       ├── languages.ts
-│   │   │   │       ├── languages.html
-│   │   │   │       └── languages.scss
+│   │   │   │   ├── languages/
+│   │   │   │   │   ├── languages.html
+│   │   │   │   │   ├── languages.ts
+│   │   │   │   │   └── languages.scss
+│   │   │   │   │
+│   │   │   │   ├── navigation/
+│   │   │   │   │   ├── data/
+│   │   │   │   │   │   └── navigation-items.data.ts
+│   │   │   │   │   │
+│   │   │   │   │   ├── model/
+│   │   │   │   │   │   └── navigation-item.model.ts
+│   │   │   │   │   │
+│   │   │   │   │   ├── navigation.ts
+│   │   │   │   │   ├── navigation.html
+│   │   │   │   │   └── navigation.scss
+│   │   │   │   │
+│   │   │   │   ├── theme-toggle/
+│   │   │   │   │   ├── theme-toggle.ts
+│   │   │   │   │   ├── theme-toggle.html
+│   │   │   │   │   └── theme-toggle.scss
+│   │   │   │   │
+│   │   │   │   └── language-selector/
+│   │   │   │       ├── language-selector.ts
+│   │   │   │       ├── language-selector.html
+│   │   │   │       └── language-selector.scss
 │   │   │   │
 │   │   │   ├── app.ts
 │   │   │   ├── app.html
@@ -397,7 +571,8 @@ developer-portfolio/
 │   │   │   ├── _functions.scss
 │   │   │   ├── _mixins.scss
 │   │   │   ├── _reset.scss
-│   │   │   └── _base.scss
+│   │   │   ├── _base.scss
+│   │   │   └── _themes.scss
 │   │   │
 │   │   ├── index.html
 │   │   ├── main.ts

@@ -283,6 +283,15 @@ Los componentes consumen las variables y mixins mediante el sistema de módulos 
 
 Los estilos específicos de cada feature permanecen encapsulados en su correspondiente archivo `.scss`.
 
+### Evolución
+
+A partir de la implementación del sistema de temas Light/Dark, los Design Tokens se dividen según su comportamiento:
+
+- Los valores estáticos continúan utilizando variables SCSS.
+- Los valores visuales que cambian dinámicamente según el tema utilizan CSS Custom Properties.
+
+La estrategia de gestión de temas y tokens dinámicos se encuentra documentada en `DEC-013`.
+
 ---
 
 ## DEC-010 — Estrategia responsive Mobile First
@@ -386,5 +395,236 @@ Sus elementos internos utilizan nombres derivados del bloque:
 - `technologies__item`
 
 Los nombres BEM describen la responsabilidad estructural o semántica del elemento y no su apariencia visual.
+
+---
+
+## DEC-012 — Navegación interna por secciones
+
+**Fecha:** 2026-08-25
+
+### Decisión
+
+La navegación principal del CV se implementará como una feature independiente ubicada en:
+
+`frontend/src/app/features/navigation/`
+
+La navegación entre las diferentes secciones del CV se realizará mediante identificadores de sección dentro de la misma SPA, sin utilizar Angular Router para estos desplazamientos.
+
+Los elementos disponibles en el menú se mantendrán separados de la lógica y presentación del componente mediante:
+
+- `data/navigation-items.data.ts`: configuración de los elementos de navegación.
+- `model/navigation-item.model.ts`: contrato utilizado para tipar cada elemento.
+
+El componente utilizará Angular Signals para gestionar los estados de interfaz relacionados con:
+
+- Apertura y cierre del menú.
+- Visibilidad del botón `scroll-to-top`.
+
+La navegación incluirá:
+
+- Navegación directa entre las secciones del CV.
+- Desplazamiento suave.
+- Cierre del menú al seleccionar una sección.
+- Cierre del menú al interactuar fuera del componente.
+- Botón `scroll-to-top` para regresar al inicio del documento.
+
+### Motivo
+
+El CV se presenta actualmente como una única página y sus secciones forman parte del mismo documento.
+
+Utilizar navegación mediante identificadores permite desplazarse directamente entre las secciones sin introducir rutas adicionales que no representan páginas independientes.
+
+Separar los elementos de navegación de la lógica del componente evita hardcodear repetidamente su estructura en el template y facilita agregar, eliminar o modificar secciones posteriormente.
+
+El uso de Signals permite representar de forma simple y reactiva los estados locales de interfaz del componente.
+
+### Implementación
+
+La feature se encuentra organizada en:
+
+`frontend/src/app/features/navigation/`
+
+con la siguiente estructura:
+
+- `data/navigation-items.data.ts`
+- `model/navigation-item.model.ts`
+- `navigation.ts`
+- `navigation.html`
+- `navigation.scss`
+
+La navegación utiliza enlaces internos asociados a los identificadores de las secciones correspondientes.
+
+La iconografía del menú y del botón `scroll-to-top` utiliza Font Awesome, manteniendo la estrategia global de iconografía definida para el frontend.
+
+---
+
+## DEC-013 — Gestión global de temas Light y Dark
+
+**Fecha:** 2026-08-26
+
+### Decisión
+
+El frontend soportará los temas visuales `light` y `dark` mediante una estrategia global centralizada.
+
+La lógica y el estado del tema estarán gestionados por:
+
+`frontend/src/app/core/services/theme.service.ts`
+
+Los temas disponibles estarán tipados mediante:
+
+`frontend/src/app/core/models/theme.model.ts`
+
+La interfaz que permite al usuario cambiar manualmente el tema estará encapsulada en:
+
+`frontend/src/app/features/theme-toggle/`
+
+El estado global del tema se gestionará mediante Angular Signals.
+
+El tema activo se aplicará al documento mediante el atributo:
+
+`data-theme`
+
+sobre el elemento `body`.
+
+Los valores visuales que cambian entre Light y Dark se definirán mediante CSS Custom Properties centralizadas en:
+
+`frontend/src/styles/_themes.scss`
+
+Los Design Tokens que no dependen del tema, como spacing, tamaños tipográficos, breakpoints y valores de layout, continuarán utilizando variables SCSS.
+
+### Prioridad del tema
+
+La selección inicial del tema seguirá el siguiente orden:
+
+1. Preferencia seleccionada previamente por el usuario y almacenada en `localStorage`.
+2. Preferencia del sistema operativo obtenida mediante `prefers-color-scheme`.
+
+Cuando el usuario seleccione manualmente un tema, dicha preferencia tendrá prioridad sobre la configuración del sistema operativo.
+
+Si no existe una preferencia manual almacenada, la aplicación reaccionará en tiempo real a cambios en `prefers-color-scheme`.
+
+### Motivo
+
+Centralizar el estado del tema evita que las features individuales necesiten determinar si la aplicación se encuentra en modo Light o Dark.
+
+El uso de CSS Custom Properties permite cambiar dinámicamente los valores visuales en runtime sin generar estilos específicos para cada tema dentro de cada componente.
+
+Mantener los Design Tokens estructurales mediante SCSS y utilizar CSS Custom Properties únicamente para los valores dinámicos permite conservar el Design System existente y añadir soporte para temas sin duplicar estilos.
+
+Persistir la selección mediante `localStorage` permite mantener la preferencia del usuario entre sesiones.
+
+Utilizar `prefers-color-scheme` cuando no existe una elección manual permite respetar la configuración visual del sistema operativo del usuario.
+
+### Implementación
+
+El flujo de gestión del tema queda estructurado de la siguiente manera:
+
+`ThemeToggle → ThemeService → Angular Signal → body[data-theme] → CSS Custom Properties`
+
+La definición de los temas se encuentra en:
+
+`frontend/src/styles/_themes.scss`
+
+Los componentes consumen directamente los Design Tokens dinámicos mediante:
+
+`var(--token-name)`
+
+sin contener lógica específica para determinar el tema activo.
+
+`ThemeService` utiliza `matchMedia('(prefers-color-scheme: dark)')` para detectar la preferencia inicial del sistema y escuchar cambios posteriores cuando no existe una preferencia manual.
+
+La selección manual del usuario se almacena en `localStorage`.
+
+---
+
+## DEC-014 — Estrategia de internacionalización del CV
+
+**Fecha:** 2026-08-29
+
+### Decisión
+
+La aplicación soportará inicialmente los idiomas Español (`es`) e Inglés (`en`) mediante una estrategia de internacionalización centralizada que permita cambiar el idioma en runtime sin recargar la aplicación.
+
+La gestión del idioma activo estará centralizada en:
+
+`frontend/src/app/core/services/app-language.service.ts`
+
+Los idiomas soportados estarán tipados mediante:
+
+`frontend/src/app/core/models/app-language.model.ts`
+
+La configuración utilizada para relacionar cada idioma con su locale correspondiente estará centralizada en:
+
+`frontend/src/app/core/constants/app-locale.constants.ts`
+
+La interfaz para seleccionar el idioma estará encapsulada en:
+
+`frontend/src/app/features/language-selector/`
+
+Los textos estáticos de la interfaz se gestionarán mediante `@ngx-translate/core` y archivos de traducción almacenados en:
+
+`frontend/public/i18n/`
+
+Inicialmente se utilizarán:
+
+- `es.json`
+- `en.json`
+
+El idioma seleccionado por el usuario se almacenará en `localStorage` mediante la clave:
+
+`app-language`
+
+Cuando no exista una preferencia almacenada, Español (`es`) será el idioma predeterminado.
+
+El contenido dinámico proveniente de MongoDB utilizará campos localizados cuando su contenido requiera traducción:
+
+{
+  es: "...",
+  en: "..."
+}
+
+Los endpoints de lectura de recursos internacionalizables aceptarán el query parameter:
+
+`?lang=es|en`
+
+La API transformará los documentos antes de enviarlos al frontend, devolviendo únicamente el contenido correspondiente al idioma solicitado.
+
+La selección común del contenido localizado estará centralizada en:
+
+`backend/src/utils/localizeField.js`
+
+Los recursos que lo requieran dispondrán de helpers específicos de localización.
+
+### Motivo
+
+Centralizar el idioma activo evita distribuir lógica condicional relacionada con Español e Inglés entre los diferentes componentes del frontend.
+
+Utilizar archivos de traducción para los textos estáticos permite mantener el contenido de interfaz separado de los componentes y facilita incorporar nuevos idiomas posteriormente.
+
+Mantener los campos traducibles en MongoDB permite que el contenido dinámico del CV también pueda presentarse en diferentes idiomas sin duplicar documentos completos.
+
+Realizar la transformación del contenido localizado en el backend mantiene al frontend desacoplado de la estructura bilingüe almacenada en MongoDB y permite conservar interfaces simples para los recursos consumidos.
+
+El uso del query parameter `lang` mantiene explícito el idioma solicitado en cada petición y permite que la API determine qué representación del contenido debe devolver.
+
+Persistir la selección mediante `localStorage` permite conservar la preferencia del usuario entre sesiones.
+
+### Implementación
+
+El flujo de internacionalización del contenido estático queda estructurado de la siguiente manera:
+
+`LanguageSelector → AppLanguageService → Angular Signal → ngx-translate → Translation Files`
+
+El flujo del contenido dinámico queda estructurado de la siguiente manera:
+
+`AppLanguageService → Angular Service → ?lang → Express Controller → Localization Helper → MongoDB Document → Localized API Response`
+
+Los servicios Angular envían el idioma activo mediante el parámetro `lang`.
+
+El backend utiliza Español (es) como idioma predeterminado cuando el parámetro `lang` no existe o contiene un idioma no soportado.
+
+Los componentes consumen contenido ya localizado y no necesitan conocer la estructura bilingüe almacenada en MongoDB.
+
+Las fechas utilizan el locale correspondiente al idioma activo. Para las fechas del CV representadas por mes y año se utiliza UTC durante el formateo, evitando desplazamientos provocados por la zona horaria local.
 
 ---
