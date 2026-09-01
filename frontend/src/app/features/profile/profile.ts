@@ -6,13 +6,15 @@ import { ErrorMessage } from '../../shared/components/error-message/error-messag
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faEnvelope, faGlobe, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile',
   imports: [
     Loading,
     ErrorMessage,
-    FaIconComponent
+    FaIconComponent,
+    TranslatePipe
   ],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',

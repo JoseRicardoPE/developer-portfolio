@@ -1,5 +1,6 @@
 @use '../../../styles/vars' as v;
 @use '../../../styles/mixins' as m;
+@use '../../../styles/functions' as f;
 
 .languages {
     width: 100%;
@@ -43,19 +44,15 @@
 }
 
 .languages__description-item {
+    @include m.body-relaxed-mobile;
     display: flex;
     align-items: flex-start;
     gap: v.$internal-gap;
-}
 
-.languages__bullet {
-    @include m.bullet-mobile;
-    flex-shrink: 0;
-    color: var(--color-primary);
-}
-
-.languages__description-text {
-    @include m.body-relaxed-mobile;
+    &::before {
+        @include m.bullet($color: var(--color-primary));
+        margin-top: f.calculateRem(8px);
+    }
 }
 
 .languages__empty {
@@ -74,11 +71,7 @@
         font-size: v.$font-size-md;
     }
 
-    .languages__description-text {
+    .languages__description-item {
         font-size: v.$font-size-md;
-    }
-
-    .languages__bullet {
-        font-size: v.$font-size-bullet-desktop;
     }
 }

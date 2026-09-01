@@ -1,5 +1,6 @@
 @use '../../../styles/vars' as v;
 @use '../../../styles/mixins' as m;
+@use '../../../styles/functions' as f;
 
 .projects {
     width: 100%;
@@ -52,11 +53,20 @@
     @include m.label-primary-mobile;
 }
 
-.projects__items {
+.projects__list {
     @include m.body-default-mobile;
     display: flex;
     flex-wrap: wrap;
-    column-gap: v.$spacing-xxs;
+}
+
+.projects__item {
+    display: flex;
+    align-items: center;
+
+    &:not(:last-child)::after {
+        @include m.bullet();
+        margin-inline: v.$spacing-xxs;
+    }
 }
 
 .projects__contributions {
@@ -75,18 +85,15 @@
 }
 
 .projects__contribution-item {
+    @include m.body-relaxed-mobile;
     display: flex;
     align-items: flex-start;
     gap: v.$internal-gap;
-}
 
-.projects__bullet {
-    @include m.bullet-mobile;
-    flex-shrink: 0;
-}
-
-.projects__contribution-text {
-    @include m.body-relaxed-mobile;
+    &::before {
+        @include m.bullet($color: var(--color-primary));
+        margin-top: f.calculateRem(8px);
+    }
 }
 
 .projects__additional-info {
@@ -121,7 +128,7 @@
     }
 
     .projects__description,
-    .projects__items,
+    .projects__list,
     .projects__related-experience {
         font-size: v.$font-size-md;
     }
@@ -130,11 +137,7 @@
         font-size: v.$font-size-md;
     }
 
-    .projects__bullet {
-        font-size: v.$font-size-bullet-desktop;
-    }
-
-    .projects__contribution-text {
+    .projects__contribution-item {
         font-size: v.$font-size-md;
     }
 

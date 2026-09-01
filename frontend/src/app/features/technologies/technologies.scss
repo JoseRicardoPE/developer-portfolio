@@ -28,12 +28,21 @@
     @include m.label-primary-mobile;
 }
 
-.technologies__items {
+.technologies__list {
     @include m.body-default-mobile;
     display: flex;
     flex-wrap: wrap;
     color: var(--color-text-secondary);
-    gap: v.$spacing-xxxs;
+}
+
+.technologies__item {
+    display: flex;
+    align-items: center;
+
+    &:not(:last-child)::after {
+        @include m.bullet();
+        margin-inline: v.$spacing-xxs;
+    }
 }
 
 .technologies__empty {
@@ -50,7 +59,7 @@
         font-size: v.$font-size-lg;
     }
 
-    .technologies__items {
+    .technologies__list {
         font-size: v.$font-size-md;
     }
 

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { Profile } from './features/profile/profile';
 import { ProfessionalProfile } from './features/professional-profile/professional-profile';
 import { Technologies } from './features/technologies/technologies';
@@ -6,9 +6,11 @@ import { Experience } from './features/experience/experience';
 import { Projects } from './features/projects/projects';
 import { Education } from './features/education/education';
 import { Languages } from './features/languages/languages';
-import { Navigation } from "./features/navigation/navigation";
-import { ThemeToggle } from "./features/theme-toggle/theme-toggle";
-import { LanguageSelector } from "./features/language-selector/language-selector";
+import { Navigation } from './features/navigation/navigation';
+import { ThemeToggle } from './features/theme-toggle/theme-toggle';
+import { LanguageSelector } from './features/language-selector/language-selector';
+import { SeoService } from './core/services/seo.service';
+import { AppLanguageService } from './core/services/app-language.service';
 
 @Component({
   selector: 'app-root',
@@ -22,11 +24,19 @@ import { LanguageSelector } from "./features/language-selector/language-selector
     Languages,
     Navigation,
     ThemeToggle,
-    LanguageSelector
-],
+    LanguageSelector,
+  ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('frontend');
+  private readonly appLanguageService = inject(AppLanguageService);
+  private readonly seoService = inject(SeoService);
+
+  constructor() {
+    effect(() => {
+      const language = this.appLanguageService.language();
+      this.seoService.updateMetadata(language);
+    });
+  }
 }

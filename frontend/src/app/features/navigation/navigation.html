@@ -1,6 +1,7 @@
-<section class="navigation">
+<div class="navigation">
     <div class="navigation__trigger">
         <button
+            #menuTrigger
             class="navigation__hamburger"
             type="button"
             [attr.aria-expanded]="isOpen()"
@@ -25,7 +26,7 @@
                 <a
                     class="navigation__item"
                     [href]="'#' + item.fragment"
-                    (click)="closeMenu()"
+                    (click)="selectMenuItem(item.fragment)"
                 >
                     {{ item.label | translate }}
                 </a>
@@ -45,4 +46,4 @@
             ></fa-icon>
         </button>
     }
-</section>
+</div>

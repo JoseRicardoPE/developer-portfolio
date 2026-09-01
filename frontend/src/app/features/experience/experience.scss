@@ -1,5 +1,6 @@
 @use '../../../styles/vars' as v;
 @use '../../../styles/mixins' as m;
+@use '../../../styles/functions' as f;
 
 .experience {
     width: 100%;
@@ -17,7 +18,7 @@
     gap: v.$spacing-lg;
 }
 
-.experience__item {
+.experience__article {
     display: flex;
     flex-direction: column;
     gap: v.$internal-gap;
@@ -46,7 +47,7 @@
     gap: v.$internal-gap;
 }
 
-.experience__label {
+.experience__responsibility {
     @include m.label-primary-mobile;
     color: var(--color-text-secondary);
 }
@@ -57,19 +58,15 @@
     gap: v.$internal-gap;
 }
 
-.experience__responsibility {
+.experience__item {
+    @include m.body-relaxed-mobile;
     display: flex;
     align-items: flex-start;
     gap: v.$internal-gap;
-}
-
-.experience__bullet {
-    @include m.bullet-mobile;
-    flex-shrink: 0;
-}
-
-.experience__responsibility-text {
-    @include m.body-relaxed-mobile;
+    &::before {
+        @include m.bullet($color: var(--color-primary));
+        margin-top: f.calculateRem(8px);
+    }
 }
 
 // Desktop
@@ -90,15 +87,11 @@
         font-size: v.$font-size-sm;
     }
 
-    .experience__label {
+    .experience__responsibility {
         font-size: v.$font-size-lg;
     }
 
-    .experience__bullet {
-        font-size: v.$font-size-bullet-desktop;
-    }
-
-    .experience__responsibility-text {
+    .experience__item {
         font-size: v.$font-size-md;
     }
 }

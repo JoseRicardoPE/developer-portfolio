@@ -22,7 +22,7 @@
     border-radius: 50%;
 
     &:focus-visible {
-        outline: f.calculateRem(2px) solid var(--color-text-primary);
+        outline: f.calculateRem(2px) solid var(--color-focus);
         outline-offset: f.calculateRem(2px);
     }
 }

@@ -1,5 +1,9 @@
-<section class="technologies" id="technologies">
-    <h3 class="technologies__title">{{ 'technologies.title' | translate}}</h3>
+<section
+    class="technologies"
+    id="technologies"
+    tabindex="-1"
+>
+    <h2 class="technologies__title">{{ 'technologies.title' | translate }}</h2>
     @if (loading()) {
         <app-loading></app-loading>
     } @else if (error(); as errorMessage) {
@@ -8,22 +12,17 @@
         <div class="technologies__content">
             @for (technology of technologies(); track technology._id) {
                 <div class="technologies__group">
-                    <span class="technologies__category">{{ technology.category }}</span>
-                    <ul class="technologies__items">
+                    <h3 class="technologies__category">{{ technology.category }}</h3>
+                    <ul class="technologies__list">
                         @for (item of technology.items; track $index) {
                             <li class="technologies__item">
-                                <span class="technologies__item-text">{{ item }}</span>
+                                {{ item }}
                             </li>
-                            @if (!$last) {
-                                <span class="technologies__separator" aria-hidden="true">
-                                    •
-                                </span>
-                            }
                         }
                     </ul>
                 </div>
             } @empty {
-                <span class="technologies__empty">{{ 'technologies.empty' | translate}}</span>
+                <span class="technologies__empty">{{ 'technologies.empty' | translate }}</span>
             }
         </div>
     }

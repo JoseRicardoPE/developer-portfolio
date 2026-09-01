@@ -1,8 +1,8 @@
 <div class="language-selector">
     <button
+        #languageTrigger
         class="language-selector__trigger"
         type="button"
-        aria-haspopup="menu"
         [attr.aria-expanded]="isOpen()"
         aria-controls="language-menu"
         [attr.aria-label]="'languageSelector.label' | translate"
@@ -19,13 +19,11 @@
         <div
             class="language-selector__menu"
             id="language-menu"
-            role="menu"
         >
             <button
                 class="language-selector__item"
                 type="button"
-                role="menuitemradio"
-                [attr.aria-checked]="language() === 'es'"
+                [attr.aria-pressed]="language() === 'es'"
                 [class.language-selector__item--active]="language() === 'es'"
                 (click)="selectLanguage('es')"
             >
@@ -34,8 +32,7 @@
             <button
                 class="language-selector__item"
                 type="button"
-                role="menuitemradio"
-                [attr.aria-checked]="language() === 'en'"
+                [attr.aria-pressed]="language() === 'en'"
                 [class.language-selector__item--active]="language() === 'en'"
                 (click)="selectLanguage('en')"
             >

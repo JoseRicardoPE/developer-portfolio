@@ -1,5 +1,5 @@
-<section class="education" id="education">
-    <h3 class="education__title">{{ 'education.title' | translate}}</h3>
+<section class="education" id="education" tabindex="-1">
+    <h2 class="education__title">{{ 'education.title' | translate}}</h2>
     @if (loading()) {
         <app-loading></app-loading>
     } @else if (error(); as errorMessage) {
@@ -9,9 +9,9 @@
             @for (education of educations(); track education._id) {
                 <article class="education__article">
                     <div class="education__item">
-                        <h4 class="education__name">
+                        <h3 class="education__name">
                             {{ education.title }}
-                        </h4>
+                        </h3>
                         <span class="education__institution">
                             {{ education.institution }}
                         </span>
@@ -26,19 +26,11 @@
 
                     @if (education.technologies.length > 0) {
                         <div class="education__technologies">
-                            <span class="education__label">{{ 'education.technologies' | translate}}</span>
+                            <h4 class="education__label">{{ 'education.technologies' | translate}}</h4>
                             <ul class="education__technology-list">
                                 @for (technology of education.technologies; track $index) {
                                     <li class="education__technology-item">
-                                        <span class="education__technology-text">
-                                            {{ technology }}
-                                        </span>
-
-                                        @if (!$last) {
-                                            <span class="education__separator" aria-hidden="true">
-                                                •
-                                            </span>
-                                        }
+                                        {{ technology }}
                                     </li>
                                 }
                             </ul>
@@ -47,16 +39,11 @@
 
                     @if (education.contributions.length > 0) {
                         <div class="education__contributions">
-                            <span class="education__label">{{ 'education.contributions' | translate}}</span>
+                            <h4 class="education__label">{{ 'education.contributions' | translate}}</h4>
                             <ul class="education__contribution-list">
                                 @for (contribution of education.contributions; track $index) {
                                     <li class="education__contribution-item">
-                                        <span class="education__bullet" aria-hidden="true">
-                                            •
-                                        </span>
-                                        <span class="education__contribution-text">
-                                            {{ contribution }}
-                                        </span>
+                                        {{ contribution }}
                                     </li>
                                 }
                             </ul>

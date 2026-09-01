@@ -1,5 +1,5 @@
-<section class="languages" id="languages">
-    <h3 class="languages__title">{{ 'languages.title' | translate}}</h3>
+<section class="languages" id="languages" tabindex="-1">
+    <h2 class="languages__title">{{ 'languages.title' | translate}}</h2>
 
     @if (loading()) {
         <app-loading></app-loading>
@@ -8,7 +8,7 @@
     } @else {
         <div class="languages__content">
             @for (language of languages(); track language._id) {
-                <article class="languages__item">
+                <div class="languages__item">
                     <div class="languages__info">
                         <span class="languages__name">
                             {{ language.language }}
@@ -23,16 +23,12 @@
                         <ul class="languages__description-list">
                             @for (description of language.description; track $index) {
                                 <li class="languages__description-item">
-                                    <span class="languages__bullet" aria-hidden="true"> • </span>
-
-                                    <span class="languages__description-text">
-                                        {{ description }}
-                                    </span>
+                                    {{ description }}
                                 </li>
                             }
                         </ul>
                     }
-                </article>
+                </div>
             } @empty {
                 <span class="languages__empty">{{ 'languages.empty' | translate}}</span>
             }

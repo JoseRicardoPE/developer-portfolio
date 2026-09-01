@@ -1,13 +1,13 @@
-<section class="profile">
+<div class="profile">
     @if (loading()) {
         <app-loading></app-loading>
     } @else if (error(); as errorMessage) {
         <app-error-message [message]="errorMessage"></app-error-message>
     } @else if (profile(); as profileData) {
-        <div class="profile__identity">
-            <h1 class="profile__name">{{ profileData.name }}</h1>
-            <h2 class="profile__lastname">{{ profileData.lastname }}</h2>
-        </div>
+        <h1 class="profile__identity">
+            <span class="profile__name">{{ profileData.name }}</span>
+            <span class="profile__lastname">{{ profileData.lastname }}</span>
+        </h1>
 
         <div class="profile__role">
             <span class="profile__role-title">{{ profileData.title }}</span>
@@ -27,7 +27,10 @@
                     </span>
                 </div>
 
-                <a class="profile__contact-item" [href]="'mailto:' + profileData.email">
+                <a
+                    class="profile__contact-item"
+                    [href]="'mailto:' + profileData.email"
+                >
                     <fa-icon
                         class="profile__contact-icon"
                         [icon]="faEnvelope"
@@ -38,7 +41,10 @@
                     </span>
                 </a>
 
-                <a class="profile__contact-item" [href]="'tel:' + profileData.phone">
+                <a
+                    class="profile__contact-item"
+                    [href]="'tel:' + profileData.phone"
+                >
                     <fa-icon
                         class="profile__contact-icon"
                         [icon]="faPhone"
@@ -63,6 +69,9 @@
                         aria-hidden="true"
                     ></fa-icon>
                     <span class="profile__social-text">LinkedIn</span>
+                    <span class="sr-only">
+                        {{ 'accessibility.opensNewTab' | translate }}
+                    </span>
                 </a>
 
                 <a
@@ -77,8 +86,11 @@
                         aria-hidden="true"
                     ></fa-icon>
                     <span class="profile__social-text">GitHub</span>
+                    <span class="sr-only">
+                        {{ 'accessibility.opensNewTab' | translate }}
+                    </span>
                 </a>
             </div>
         </div>
     }
-</section>
+</div>
