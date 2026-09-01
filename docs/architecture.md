@@ -410,6 +410,74 @@ El atributo `lang` del documento se mantiene sincronizado con el idioma activo d
 
 La accesibilidad fue validada mediante Lighthouse y pruebas manuales con NVDA y Firefox.
 
+### Production Deployment
+
+La aplicación utiliza una arquitectura de despliegue independiente para frontend, backend y base de datos.
+
+El entorno de producción está compuesto por:
+
+- Frontend Angular desplegado de forma independiente.
+- API REST Node.js + Express desplegada en Render.
+- Base de datos MongoDB alojada en MongoDB Atlas.
+
+El backend de producción se encuentra disponible mediante el dominio:
+
+`https://api.fullstackricardo.com`
+
+Este dominio está configurado como Custom Domain del Web Service de Render y apunta al servicio mediante un registro DNS `CNAME`.
+
+La comunicación en producción sigue el flujo:
+
+`Angular Frontend → https://api.fullstackricardo.com/api → Render Web Service → MongoDB Atlas`
+
+El frontend utiliza Angular Environments para mantener separada la configuración de desarrollo y producción.
+
+La configuración local se encuentra en:
+
+`src/environments/environment.ts`
+
+y utiliza:
+
+`http://localhost:3000/api`
+
+La configuración de producción se encuentra en:
+
+`src/environments/environment.production.ts`
+
+y utiliza:
+
+`https://api.fullstackricardo.com/api`
+
+Angular reemplaza automáticamente `environment.ts` por `environment.production.ts` durante el build de producción mediante la configuración `fileReplacements` definida en `angular.json`.
+
+Los endpoints permanecen centralizados en:
+
+`src/app/core/constants/api.constants.ts`
+
+Los servicios Angular consumen estos endpoints sin conocer directamente si la aplicación se está ejecutando en desarrollo o producción.
+
+El backend utiliza variables de entorno para almacenar configuración sensible y específica del entorno, incluyendo:
+
+- `MONGODB_URI`: cadena de conexión a MongoDB Atlas.
+- `NODE_ENV`: entorno de ejecución de la aplicación.
+- `CORS_ORIGIN`: origen permitido para las solicitudes realizadas desde el frontend.
+
+La conexión de producción a MongoDB se realiza mediante MongoDB Atlas y se establece antes de iniciar el servidor HTTP.
+
+Render utiliza el endpoint:
+
+`GET /api/health`
+
+como Health Check para verificar que la API se encuentra disponible.
+
+El servicio de Render mantiene habilitado su subdominio original como endpoint alternativo:
+
+`https://developer-cv-api.onrender.com`
+
+mientras que el dominio público utilizado por el frontend es:
+
+`https://api.fullstackricardo.com`
+
 ### Mobile First
 
 La estrategia responsive sigue un enfoque Mobile First.

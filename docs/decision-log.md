@@ -733,3 +733,46 @@ Los enlaces externos que abren una nueva pestaña incluyen información adiciona
 La implementación fue validada mediante Lighthouse y pruebas manuales con NVDA y Firefox.
 
 ---
+
+### DEC-016 — Estrategia de despliegue y configuración de producción
+
+**Fecha:** 2026-09-01
+
+**Decisión**
+
+Separar el despliegue de los diferentes componentes de la aplicación, utilizando servicios independientes para el frontend, backend y base de datos.
+
+El backend Node.js + Express se despliega como un Web Service en Render y utiliza el dominio personalizado:
+
+`https://api.fullstackricardo.com`
+
+La persistencia de datos en producción se realiza mediante MongoDB Atlas.
+
+El frontend utiliza Angular Environments para mantener configuraciones independientes entre desarrollo y producción, utilizando en producción:
+
+`https://api.fullstackricardo.com/api`
+
+como URL base de la API.
+
+**Motivo**
+
+Mantener desacoplados el frontend, backend y base de datos permite desplegar, configurar y evolucionar cada componente de forma independiente.
+
+El uso de variables de entorno evita almacenar configuración sensible directamente en el código fuente, mientras que Angular Environments permite seleccionar automáticamente la configuración correspondiente durante el proceso de build.
+
+El dominio personalizado de la API proporciona una URL estable e independiente del proveedor utilizado para alojar el backend.
+
+**Implementación**
+
+- MongoDB Atlas se utiliza como base de datos del entorno de producción.
+- Render aloja la API REST desarrollada con Node.js y Express.
+- `api.fullstackricardo.com` está configurado como Custom Domain del servicio backend.
+- El DNS utiliza un registro `CNAME` para dirigir `api.fullstackricardo.com` al servicio de Render.
+- `environment.ts` mantiene la configuración utilizada durante el desarrollo local.
+- `environment.production.ts` define la URL de la API utilizada en producción.
+- Angular utiliza `fileReplacements` para seleccionar el environment correspondiente durante el build.
+- Los endpoints permanecen centralizados en `api.constants.ts`.
+- La configuración sensible del backend se administra mediante variables de entorno.
+- `CORS_ORIGIN` restringe las solicitudes del navegador al origen configurado para el frontend.
+
+---
