@@ -8,7 +8,8 @@
       "files": "*.html",
       "options": {
         "parser": "angular",
-        "tabWidth": 4
+        "tabWidth": 4,
+        "singleAttributePerLine": true
       }
     },
     {

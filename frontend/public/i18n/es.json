@@ -1,4 +1,7 @@
 {
+  "accessibility": {
+    "opensNewTab": "Se abre en una nueva pestaña"
+  },
   "navigation": {
     "professionalProfile": "Perfil profesional",
     "technologies": "Tecnologías",
@@ -57,7 +60,11 @@
     "label": "Seleccionar idioma"
   },
   "theme": {
-    "activateLiht": "Activar tema claro",
+    "activateLight": "Activar tema claro",
     "activateDark": "Activar tema oscuro"
+  },
+  "seo": {
+    "title": "Ricardo Pacheco | Frontend Engineer",
+    "description": "CV profesional de Ricardo Pacheco, Frontend Engineer especializado en Angular, TypeScript y desarrollo de interfaces web modernas."
   }
 }

@@ -28,24 +28,15 @@
 // ========================================
 
 @mixin h1-mobile {
-    @include text-style(
-        v.$font-size-h1-mobile,
-        v.$font-weight-bold
-    );
+    @include text-style(v.$font-size-h1-mobile, v.$font-weight-bold);
 }
 
 @mixin h2-mobile {
-    @include text-style(
-        v.$font-size-h2-mobile,
-        v.$font-weight-medium
-    );
+    @include text-style(v.$font-size-h2-mobile, v.$font-weight-medium);
 }
 
 @mixin h3-mobile {
-    @include text-style(
-        v.$font-size-h3-mobile,
-        v.$font-weight-bold
-    );
+    @include text-style(v.$font-size-h3-mobile, v.$font-weight-bold);
 }
 
 // ========================================
@@ -55,10 +46,7 @@
 // Used for role information such as:
 // "Frontend Engineer (Angular)".
 @mixin label-role-mobile {
-    @include text-style(
-        v.$font-size-md,
-        v.$font-weight-medium
-    );
+    @include text-style(v.$font-size-md, v.$font-weight-medium);
 }
 
 // Used for contact and social information.
@@ -73,18 +61,12 @@
 
 // Main label style used for categories and subtitles.
 @mixin label-primary-mobile {
-    @include text-style(
-        v.$font-size-md,
-        v.$font-weight-bold
-    );
+    @include text-style(v.$font-size-md, v.$font-weight-bold);
 }
 
 // Secondary label style.
 @mixin label-medium-mobile {
-    @include text-style(
-        v.$font-size-sm,
-        v.$font-weight-medium
-    );
+    @include text-style(v.$font-size-sm, v.$font-weight-medium);
 }
 
 // ========================================
@@ -122,16 +104,17 @@
 }
 
 // ========================================
-// Typography - Bullets
+// Bullets for list item
 // ========================================
 
-@mixin bullet-mobile {
-    @include text-style(
-        v.$font-size-bullet-mobile,
-        v.$font-weight-bold,
-        v.$line-height-default,
-        var(--color-primary)
-    );
+@mixin bullet($size: f.calculateRem(4px), $color: var(--color-text-secondary)) {
+    content: '';
+    display: inline-block;
+    width: $size;
+    height: $size;
+    border-radius: 50%;
+    background-color: $color;
+    flex-shrink: 0;
 }
 
 // ========================================

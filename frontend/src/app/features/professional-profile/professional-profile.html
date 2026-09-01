@@ -1,5 +1,9 @@
-<section class="professional-profile" id="professional-profile">
-    <h3 class="professional-profile__title">{{ 'professionalProfile.title' | translate}}</h3>
+<section
+    class="professional-profile"
+    id="professional-profile"
+    tabindex="-1"
+>
+    <h2 class="professional-profile__title">{{ 'professionalProfile.title' | translate }}</h2>
     @if (loading()) {
         <app-loading></app-loading>
     } @else if (error(); as errorMessage) {

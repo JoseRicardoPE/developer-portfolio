@@ -31,6 +31,7 @@
     right: 0;
     display: flex;
     flex-direction: column;
+    gap: v.$spacing-xxs;
     min-width: f.calculateRem(140px);
     padding: v.$spacing-xs;
     background-color: var(--color-background-menu);
@@ -63,7 +64,7 @@
     }
 
     &:focus-visible {
-        outline: f.calculateRem(2px) solid var(--color-primary);
+        outline: f.calculateRem(2px) solid var(--color-focus);
         outline-offset: f.calculateRem(2px);
     }
 }

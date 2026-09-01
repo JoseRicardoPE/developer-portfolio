@@ -43,6 +43,7 @@
     min-height: f.calculateRem(40px);
     padding: f.calculateRem(10px) v.$spacing-xs;
     color: var(--color-text-secondary);
+    border-radius: f.calculateRem(6px);
     text-decoration: none;
     transition: color 0.2s ease;
 
@@ -51,7 +52,7 @@
     }
 
     &:focus-visible {
-        outline: f.calculateRem(2px) solid var(--color-primary);
+        outline: f.calculateRem(2px) solid var(--color-focus);
         outline-offset: f.calculateRem(2px);
     }
 }
@@ -82,7 +83,7 @@
     }
     
     &:focus-visible {
-        outline: f.calculateRem(2px) solid var(--color-primary);
+        outline: f.calculateRem(2px) solid var(--color-focus);
         outline-offset: f.calculateRem(3px);
     }
 }
