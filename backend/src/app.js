@@ -12,10 +12,16 @@ import languageRoutes from "./routes/languageRoutes.js";
 
 const app = express();
 
-// Middlewares
-app.use(cors());
-app.use(morgan("dev"));
+const allowedOrigins = [process.env.CORS_ORIGIN,].filter(Boolean);
 
+// Middlewares
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN,
+  }),
+);
+
+app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
