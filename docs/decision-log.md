@@ -628,3 +628,108 @@ Los componentes consumen contenido ya localizado y no necesitan conocer la estru
 Las fechas utilizan el locale correspondiente al idioma activo. Para las fechas del CV representadas por mes y año se utiliza UTC durante el formateo, evitando desplazamientos provocados por la zona horaria local.
 
 ---
+
+## DEC-015 — Estrategia de SEO y accesibilidad
+
+**Fecha:** 2026-08-31
+
+### Decisión
+
+El frontend utilizará una estrategia centralizada de SEO y accesibilidad basada en metadata estática inicial, metadata dinámica localizada y HTML semántico.
+
+La metadata inicial se definirá en:
+
+`frontend/src/index.html`
+
+Esta metadata proporcionará valores predeterminados en Español para los elementos principales utilizados por buscadores y plataformas sociales.
+
+La gestión dinámica de metadata estará centralizada en:
+
+`frontend/src/app/core/services/seo.service.ts`
+
+El contrato utilizado para representar la metadata SEO estará definido en:
+
+`frontend/src/app/core/models/seo-metadata.model.ts`
+
+`SeoService` actualizará dinámicamente:
+
+- `title`
+- `description`
+- Canonical URL
+- Open Graph
+- Twitter/X Card
+- Locale utilizado por Open Graph
+
+Los textos localizables de SEO se mantendrán en los archivos de traducción existentes:
+
+`frontend/public/i18n/es.json`
+
+`frontend/public/i18n/en.json`
+
+El atributo `lang` del documento se mantendrá sincronizado con el idioma activo mediante `AppLanguageService`.
+
+La aplicación utilizará como URL canónica:
+
+`https://fullstackricardo.com/`
+
+Los recursos públicos relacionados con SEO incluirán:
+
+- `robots.txt`
+- `sitemap.xml`
+- `favicon.ico`
+- `favicon.png`
+- `images/og-image.png`
+
+La estrategia de accesibilidad priorizará HTML semántico y elementos interactivos nativos. Los atributos ARIA se utilizarán únicamente cuando aporten información que no pueda representarse suficientemente mediante semántica HTML nativa.
+
+La navegación y los controles interactivos deberán ser utilizables mediante teclado y mantener estados de foco visibles.
+
+Los elementos puramente decorativos no formarán parte del contenido expuesto a tecnologías de asistencia.
+
+### Motivo
+
+Centralizar la metadata evita distribuir lógica SEO entre diferentes componentes y proporciona un único punto responsable de actualizar la información utilizada por el documento.
+
+Mantener metadata estática inicial permite que el documento disponga de información SEO predeterminada antes de que Angular actualice dinámicamente los valores localizados.
+
+Integrar la metadata con el sistema de internacionalización permite mantener `title`, `description` y metadata social sincronizados con el idioma activo de la aplicación.
+
+Definir una URL canónica evita representaciones ambiguas de la URL principal y establece una referencia consistente para buscadores y plataformas sociales.
+
+Utilizar `robots.txt`, `sitemap.xml`, favicon y una imagen Open Graph proporciona los recursos básicos necesarios para indexación e identificación y presentación del sitio.
+
+Priorizar HTML semántico permite que navegadores y tecnologías de asistencia interpreten la estructura y los controles utilizando comportamiento estándar, reduciendo la necesidad de añadir ARIA innecesariamente.
+
+Gestionar correctamente el foco, la navegación mediante teclado, los nombres accesibles y los estados interactivos permite que las funcionalidades principales no dependan exclusivamente del uso del mouse.
+
+### Implementación
+
+El flujo de actualización de metadata localizada queda estructurado de la siguiente manera:
+
+`AppLanguageService → Angular Signal → App effect → SeoService → ngx-translate → Title / Meta → Document Metadata`
+
+`SeoService` utiliza los servicios `Title` y `Meta` de Angular para actualizar la metadata del documento.
+
+La metadata inicial permanece definida en `index.html` utilizando Español como idioma predeterminado.
+
+`AppLanguageService` sincroniza el idioma activo con el atributo `lang` del elemento `html`.
+
+La estructura principal del documento utiliza elementos semánticos como `header`, `nav`, `main`, `section` y `article` cuando corresponden a la responsabilidad del contenido.
+
+La jerarquía de encabezados mantiene una estructura lógica desde el `h1` principal hacia los niveles correspondientes de cada sección.
+
+Las listas de contenido utilizan elementos nativos `ul` y `li`, mientras que bullets y separadores puramente visuales se generan mediante CSS.
+
+Los controles de navegación, selección de idioma y cambio de tema utilizan elementos nativos y exponen nombres o estados accesibles cuando es necesario.
+
+La navegación permite gestionar el foco mediante teclado, cerrar controles mediante `Escape` y dirigir el foco hacia la sección seleccionada.
+
+Los estados `focus-visible` utilizan tokens compatibles con los temas Light y Dark.
+
+Los desplazamientos animados respetan la preferencia `prefers-reduced-motion`.
+
+Los enlaces externos que abren una nueva pestaña incluyen información adicional disponible para tecnologías de asistencia mediante contenido visualmente oculto.
+
+La implementación fue validada mediante Lighthouse y pruebas manuales con NVDA y Firefox.
+
+---

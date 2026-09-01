@@ -149,7 +149,7 @@ Actualmente incluye:
 
 - `models/`: interfaces y modelos utilizados para tipar los datos de la aplicación, incluyendo los recibidos desde la API y modelos de estado global.
 - `enums/`: enumeraciones compartidas por la aplicación.
-- `services/`: servicios responsables de la comunicación con la API REST y de funcionalidades globales de la aplicación, como la gestión del tema visual y del idioma de la aplicación.
+- `services/`: servicios responsables de la comunicación con la API REST y de funcionalidades globales de la aplicación, como la gestión del tema visual, idioma y metadata SEO.
 - `interceptors/`: interceptores HTTP globales.
 - `constants/`: constantes compartidas, incluyendo la configuración de endpoints de la API.
 
@@ -220,7 +220,7 @@ La estructura está compuesta por:
 
 - `_vars.scss`: Design Tokens globales estáticos como tipografía, tamaños, spacing, dimensiones de iconos, layout y breakpoints.
 - `_functions.scss`: funciones SCSS reutilizables.
-- `_mixins.scss`: mixins reutilizables para tipografía, layout y responsive.
+- `_mixins.scss`: mixins reutilizables para tipografía, elementos visuales, layout y responsive.
 - `_reset.scss`: normalización y reset de estilos del navegador.
 - `_base.scss`: estilos base globales de la aplicación.
 - `_themes.scss`: definición de los tokens visuales dinámicos utilizados por los temas Light y Dark.
@@ -330,6 +330,85 @@ Cada recurso dispone de un helper de localización específico cuando es necesar
 El backend utiliza Español como idioma predeterminado cuando el parámetro `lang` no existe o contiene un idioma no soportado.
 
 Los servicios Angular envían el idioma activo mediante el parámetro `lang`, manteniendo los modelos del frontend desacoplados de la estructura bilingüe almacenada en MongoDB.
+
+### SEO and Metadata
+
+La estrategia SEO del frontend combina metadata estática inicial con metadata dinámica gestionada por Angular.
+
+La metadata inicial se encuentra definida en:
+
+`src/index.html`
+
+Esta configuración proporciona valores predeterminados en Español para:
+
+- `title`
+- `description`
+- Canonical URL
+- Open Graph
+- Twitter/X Card
+
+La gestión dinámica de metadata se encuentra centralizada en:
+
+`src/app/core/services/seo.service.ts`
+
+El contrato utilizado para representar la metadata SEO se encuentra definido en:
+
+`src/app/core/models/seo-metadata.model.ts`
+
+`SeoService` utiliza los servicios `Title` y `Meta` de Angular para actualizar la metadata según el idioma activo de la aplicación.
+
+Los textos localizables de SEO se encuentran definidos en:
+
+`public/i18n/es.json`
+
+`public/i18n/en.json`
+
+La URL canónica actual de producción es:
+
+`https://fullstackricardo.com/`
+
+Los recursos públicos relacionados con SEO incluyen:
+
+- `robots.txt`
+- `sitemap.xml`
+- `favicon.ico`
+- `favicon.png`
+- `images/og-image.png`
+
+La imagen utilizada para Open Graph tiene una resolución de `1200x630`.
+
+### Accessibility
+
+La aplicación prioriza HTML semántico y utiliza atributos ARIA únicamente cuando la semántica nativa no proporciona suficiente información.
+
+La estructura principal utiliza elementos semánticos como:
+
+- `header`
+- `nav`
+- `main`
+- `section`
+- `article`
+
+La jerarquía de encabezados sigue una estructura lógica desde `h1` hasta los niveles correspondientes de cada sección.
+
+Las listas de contenido utilizan elementos nativos `ul` y `li`. Los elementos puramente decorativos, como separadores y bullets visuales, se generan mediante CSS y no forman parte del contenido accesible.
+
+Los controles interactivos utilizan elementos HTML nativos siempre que es posible y proporcionan nombres y estados accesibles cuando son necesarios.
+
+La navegación mediante teclado contempla:
+
+- Apertura y cierre de menús mediante controles nativos.
+- Cierre mediante la tecla `Escape`.
+- Gestión del foco al cerrar o seleccionar opciones.
+- Foco programático sobre las secciones seleccionadas.
+- Estados `focus-visible`.
+- Respeto de `prefers-reduced-motion` para desplazamientos animados.
+
+Los enlaces externos que se abren en una nueva pestaña proporcionan información adicional para tecnologías de asistencia mediante contenido visualmente oculto.
+
+El atributo `lang` del documento se mantiene sincronizado con el idioma activo de la aplicación.
+
+La accesibilidad fue validada mediante Lighthouse y pruebas manuales con NVDA y Firefox.
 
 ### Mobile First
 
@@ -441,10 +520,15 @@ developer-portfolio/
 │
 ├── frontend/
 │   ├── public/
+│   │   ├── images/
+│   │   │    └── og-image.png
+│   │   ├── i18n/
+│   │   │   ├── es.json
+│   │   │   └── en.json
 │   │   ├── favicon.ico
-│   │   └── i18n/
-│   │       ├── es.json
-│   │       └── en.json
+│   │   ├── favicon.png
+│   │   ├── robots.txt
+│   │   └── sitemap.xml
 │   │
 │   ├── src/
 │   │   ├── app/
@@ -459,7 +543,8 @@ developer-portfolio/
 │   │   │   │   │   ├── language.model.ts
 │   │   │   │   │   ├── api-response.model.ts
 │   │   │   │   │   ├── theme.model.ts
-│   │   │   │   │   └── app-language.model.ts
+│   │   │   │   │   ├── app-language.model.ts
+│   │   │   │   │   └── seo-metadata.model.ts
 │   │   │   │   │
 │   │   │   │   ├── enums/
 │   │   │   │   │   └── education-type.enum.ts
@@ -473,7 +558,8 @@ developer-portfolio/
 │   │   │   │   │   ├── education.service.ts
 │   │   │   │   │   ├── language.service.ts
 │   │   │   │   │   ├── theme.service.ts
-│   │   │   │   │   └── app-language.service.ts
+│   │   │   │   │   ├── app-language.service.ts
+│   │   │   │   │   └── seo.service.ts
 │   │   │   │   │
 │   │   │   │   ├── interceptors/
 │   │   │   │   │   └── error.interceptor.ts
