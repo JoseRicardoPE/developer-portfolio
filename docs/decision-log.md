@@ -210,7 +210,7 @@ En desarrollo se utiliza:
 
 En producción se utiliza:
 
-`environment.production.ts → /api`
+`environment.production.ts → https://api.fullstackricardo.com/api`
 
 Angular realiza el reemplazo del archivo de environment mediante `fileReplacements` en la configuración de producción de `angular.json`.
 
@@ -754,6 +754,12 @@ El frontend utiliza Angular Environments para mantener configuraciones independi
 
 como URL base de la API.
 
+El frontend Angular se despliega como un Static Site en Render y utiliza como dominio principal:
+
+`https://fullstackricardo.com`
+
+El subdominio `www.fullstackricardo.com` redirige al dominio raíz.
+
 **Motivo**
 
 Mantener desacoplados el frontend, backend y base de datos permite desplegar, configurar y evolucionar cada componente de forma independiente.
@@ -774,5 +780,11 @@ El dominio personalizado de la API proporciona una URL estable e independiente d
 - Los endpoints permanecen centralizados en `api.constants.ts`.
 - La configuración sensible del backend se administra mediante variables de entorno.
 - `CORS_ORIGIN` restringe las solicitudes del navegador al origen configurado para el frontend.
+- Render aloja el frontend Angular como Static Site.
+- `fullstackricardo.com` está configurado como Custom Domain del frontend.
+- `www.fullstackricardo.com` redirige al dominio raíz.
+- El dominio raíz utiliza un registro `A` para apuntar a Render.
+- El subdominio `www` utiliza un registro `CNAME` hacia el Static Site de Render.
+- Render administra los certificados HTTPS de los dominios personalizados.
 
 ---
