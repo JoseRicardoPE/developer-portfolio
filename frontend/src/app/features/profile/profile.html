@@ -29,7 +29,7 @@
 
                 <a
                     class="profile__contact-item"
-                    [href]="'mailto:' + profileData.email"
+                    [href]="getEmailUrl(profileData.email)"
                 >
                     <fa-icon
                         class="profile__contact-icon"
@@ -43,15 +43,20 @@
 
                 <a
                     class="profile__contact-item"
-                    [href]="'tel:' + profileData.phone"
+                    [href]="getWhatsappUrl(profileData.phone)"
+                    target="_blank"
+                    rel="noopener noreferrer"
                 >
                     <fa-icon
                         class="profile__contact-icon"
-                        [icon]="faPhone"
+                        [icon]="faWhatsapp"
                         aria-hidden="true"
                     ></fa-icon>
                     <span class="profile__contact-text">
                         {{ profileData.phone }}
+                    </span>
+                    <span class="sr-only">
+                        {{ 'accessibility.opensNewTab' | translate }}
                     </span>
                 </a>
             </div>

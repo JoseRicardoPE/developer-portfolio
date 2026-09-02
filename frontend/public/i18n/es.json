@@ -52,6 +52,12 @@
     "title": "Perfil Profesional",
     "error": "No fue posible cargar el perfil profesional."
   },
+  "profile": {
+    "whatsappMessage": "Hola Ricardo, vi tu CV en línea y me gustaría ponerme en contacto contigo.",
+    "emailSubject": "Contacto desde tu CV en línea",
+    "emailBody": "Hola Ricardo, vi tu CV en línea y me gustaría ponerme en contacto contigo.",
+    "error": "No fue posible cargar el perfil."
+  },
   "common": {
     "loading": "Cargando...",
     "error": "Ocurrió un error."
