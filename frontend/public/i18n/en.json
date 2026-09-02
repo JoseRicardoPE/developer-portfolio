@@ -52,6 +52,12 @@
     "title": "Professional Profile",
     "error": "Unable to load the professional profile."
   },
+  "profile": {
+    "whatsappMessage": "Hi Ricardo, I saw your CV online and I would like to get in touch with you.",
+    "emailSubject": "Contact from your online CV",
+    "emailBody": "Hi Ricardo, I saw your CV online and I would like to get in touch with you.",
+    "error": "The profile could not be loaded."
+  },
   "common": {
     "loading": "Loading...",
     "error": "An error occurred."
