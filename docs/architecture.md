@@ -416,11 +416,21 @@ La aplicación utiliza una arquitectura de despliegue independiente para fronten
 
 El entorno de producción está compuesto por:
 
-- Frontend Angular desplegado de forma independiente.
-- API REST Node.js + Express desplegada en Render.
+- Frontend Angular desplegado como Static Site en Render.
+- API REST Node.js + Express desplegada como Web Service en Render.
 - Base de datos MongoDB alojada en MongoDB Atlas.
 
-El backend de producción se encuentra disponible mediante el dominio:
+El frontend de producción se encuentra disponible mediante:
+
+`https://fullstackricardo.com`
+
+El subdominio:
+
+`https://www.fullstackricardo.com`
+
+redirige automáticamente al dominio raíz.
+
+El backend de producción se encuentra disponible mediante:
 
 `https://api.fullstackricardo.com`
 
@@ -428,7 +438,7 @@ Este dominio está configurado como Custom Domain del Web Service de Render y ap
 
 La comunicación en producción sigue el flujo:
 
-`Angular Frontend → https://api.fullstackricardo.com/api → Render Web Service → MongoDB Atlas`
+`fullstackricardo.com → Render Static Site → Angular → api.fullstackricardo.com/api → Render Web Service → MongoDB Atlas`
 
 El frontend utiliza Angular Environments para mantener separada la configuración de desarrollo y producción.
 
@@ -477,6 +487,16 @@ El servicio de Render mantiene habilitado su subdominio original como endpoint a
 mientras que el dominio público utilizado por el frontend es:
 
 `https://api.fullstackricardo.com`
+
+Render administra los certificados HTTPS de los dominios personalizados utilizados por frontend y backend.
+
+El frontend mantiene habilitado como endpoint alternativo el subdominio proporcionado por Render:
+
+`https://developer-cv.onrender.com`
+
+El dominio público y canónico utilizado por la aplicación es:
+
+`https://fullstackricardo.com`
 
 ### Mobile First
 

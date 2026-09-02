@@ -9,11 +9,11 @@ El proyecto utiliza:
 
 ## Base de datos
 
-La base de datos utilizada durante el desarrollo es:
+La base de datos utilizada por la aplicación es:
 
 `developer_portfolio`
 
-La conexión se configura mediante la variable de entorno:
+Durante el desarrollo local, MongoDB se ejecuta localmente y la conexión se configura mediante:
 
 `MONGODB_URI`
 
@@ -22,6 +22,14 @@ Ejemplo para un entorno local:
 ```env
 MONGODB_URI=mongodb://localhost:27017/developer_portfolio
 ```
+
+En producción, la base de datos se encuentra alojada en MongoDB Atlas.
+
+La conexión de producción también se configura mediante la variable de entorno:
+
+`MONGODB_URI`
+
+La cadena de conexión de producción se administra como una variable de entorno del backend desplegado en Render y no se almacena en el repositorio.
 
 ## Conexión
 
@@ -81,7 +89,7 @@ Los recursos `Profile` y `ProfessionalProfile` representan documentos únicos y,
 
 ## Modelos y colecciones
 
-El contenido del portfolio se encuentra dividido en los siguientes modelos:
+El contenido del CV se encuentra dividido en los siguientes modelos:
 
 | Modelo                | Colección              | Propósito                                      |
 | --------------------- | ---------------------- | ---------------------------------------------- |
@@ -109,7 +117,7 @@ developer_portfolio
 
 ## Profile
 
-El modelo `Profile` contiene la información principal y de contacto utilizada en el encabezado del portfolio.
+El modelo `Profile` contiene la información principal y de contacto utilizada en el encabezado del CV.
 
 Campos:
 
@@ -131,9 +139,11 @@ El modelo `ProfessionalProfile` almacena el contenido de la sección de perfil p
 
 Campos:
 
-- `paragraphs[]`
+- `paragraphs[]`: párrafos localizados en español e inglés.
 
-Los párrafos se almacenan como un arreglo para permitir que la cantidad de contenido pueda cambiar sin modificar el schema.
+El campo `paragraphs` almacena un arreglo de textos para cada idioma, permitiendo mantener versiones independientes del contenido en español e inglés.
+
+El uso de arreglos permite modificar la cantidad de párrafos sin necesidad de cambiar el schema.
 
 ## Technology
 
@@ -141,8 +151,8 @@ El modelo `Technology` representa las tecnologías agrupadas por categoría.
 
 Campos:
 
-- `category`
-- `items[]`
+- `category`: nombre de la categoría localizado en español e inglés.
+- `items[]`: tecnologías pertenecientes a la categoría.
 
 Ejemplos de categorías:
 
@@ -153,36 +163,48 @@ Ejemplos de categorías:
 
 Cada categoría se representa mediante un documento independiente.
 
+El campo `category` mantiene versiones independientes en español e inglés, mientras que `items` contiene un arreglo de tecnologías compartido entre ambos idiomas.
+
 ## Experience
 
 El modelo `Experience` almacena la experiencia profesional.
 
 Campos:
 
-- `position`
-- `company`
-- `startDate`
-- `endDate`
-- `current`
-- `responsibilities[]`
+- `position`: cargo localizado en español e inglés.
+- `company`: nombre de la empresa.
+- `startDate`: fecha de inicio.
+- `endDate`: fecha de finalización.
+- `current`: indica si la experiencia laboral se encuentra vigente.
+- `responsibilities[]`: responsabilidades localizadas en español e inglés.
 
-`startDate` y `endDate` se almacenan utilizando el tipo `Date`.
+Los campos `startDate` y `endDate` se almacenan utilizando el tipo `Date`.
 
-El campo `current` permite identificar una experiencia laboral vigente. En ese caso, `endDate` puede permanecer en `null`.
+El campo `current` permite identificar una experiencia laboral vigente. Cuando su valor es `true`, `endDate` puede permanecer en `null`.
+
+El campo `position` mantiene versiones independientes en español e inglés.
+
+El campo `responsibilities` almacena un arreglo de textos para cada idioma, permitiendo mantener versiones localizadas de las responsabilidades de cada experiencia.
 
 ## Project
 
-El modelo `Project` almacena los proyectos destacados del portfolio.
+El modelo `Project` almacena los proyectos destacados del CV.
 
 Campos:
 
-- `name`
-- `description`
-- `technologies[]`
-- `contributions[]`
-- `url`
-- `repository`
-- `relatedExperience`
+- `name`: nombre del proyecto localizado en español e inglés.
+- `description`: descripción localizada en español e inglés.
+- `technologies[]`: tecnologías utilizadas en el proyecto.
+- `contributions[]`: contribuciones localizadas en español e inglés.
+- `url`: URL pública del proyecto.
+- `repository`: URL del repositorio.
+- `relatedExperience`: experiencia profesional relacionada con el proyecto.
+
+Los campos `name` y `description` mantienen versiones independientes en español e inglés.
+
+El campo `contributions` almacena un arreglo de textos para cada idioma, permitiendo mantener versiones localizadas de las contribuciones realizadas en el proyecto.
+
+El campo `technologies` contiene un arreglo de tecnologías compartido entre ambos idiomas.
 
 Los campos `description`, `url`, `repository` y `relatedExperience` son opcionales porque no todos los proyectos requieren esa información.
 
@@ -192,13 +214,13 @@ El modelo `Education` gestiona tanto la formación académica como la formación
 
 Campos:
 
-- `type`
-- `title`
-- `institution`
-- `startDate`
-- `endDate`
-- `technologies[]`
-- `contributions[]`
+- `type`: tipo de formación.
+- `title`: título de la formación localizado en español e inglés.
+- `institution`: nombre de la institución.
+- `startDate`: fecha de inicio.
+- `endDate`: fecha de finalización.
+- `technologies[]`: tecnologías relacionadas con la formación.
+- `contributions[]`: contribuciones o descripciones localizadas en español e inglés.
 
 El campo `type` acepta los siguientes valores:
 
@@ -206,6 +228,14 @@ El campo `type` acepta los siguientes valores:
 - `bootcamp`
 - `course`
 - `certification`
+
+Los campos `startDate` y `endDate` se almacenan utilizando el tipo `Date` y pueden permanecer en `null`.
+
+El campo `title` mantiene versiones independientes en español e inglés.
+
+El campo `contributions` almacena un arreglo de textos para cada idioma, permitiendo mantener versiones localizadas del contenido asociado a la formación.
+
+El campo `technologies` contiene un arreglo de tecnologías compartido entre ambos idiomas.
 
 La formación complementaria no utiliza una colección independiente.
 
@@ -217,11 +247,11 @@ El modelo `Language` almacena los idiomas y su nivel de dominio.
 
 Campos:
 
-- `language`
-- `level`
-- `description`
+- `language`: contenido localizado en español e inglés.
+- `level`: nivel localizado en español e inglés.
+- `description[]`: descripciones localizadas en español e inglés.
 
-El campo `description` es opcional y permite agregar información adicional sobre el nivel o uso del idioma.
+El campo `description` almacena un arreglo de textos para cada idioma y permite agregar información adicional sobre el nivel o uso del idioma.
 
 ## Timestamps
 
